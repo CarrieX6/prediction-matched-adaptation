@@ -1,0 +1,355 @@
+{
+  "schema_version": "P1_FORMAL_ORCHESTRATION_SPEC_V7",
+  "status": "FROZEN_PRE_OUTCOME_AWAITING_INDEPENDENT_ENGINE_AUDIT_AND_AUTHORIZATION",
+  "purpose": "Bounded CBIS nested generation-record schema repair after V6 failed at COMPUTE_NESTED_FITS before outer fits or publication. The unchanged producer appends one prediction-range manifest to ten concept-fit records; engine V5 strictly parses both record types while H and final records remain exactly ten concepts. Scientific protocol, units, model grid, seeds, estimands, computation and official-test seal are unchanged.",
+  "prepared_date_utc": "2026-09-16",
+  "scientific_scope_change": false,
+  "result_blind_preparation": {
+    "p1_outcomes_accessed": false,
+    "official_test_accessed_or_discovered": false,
+    "formal_units_successfully_published_before_this_spec": 0,
+    "retained_failed_staging_payload_files": 0
+  },
+  "source_anchors": {
+    "frozen_protocol": {
+      "path": "paper_b_readiness/P1_PROTOCOL.json",
+      "sha256": "bdaca53493521a400f6307088d887eafa035f7eed4a094d522d05ee2ea5a1c1b"
+    },
+    "p0_hash_manifest": {
+      "path": "paper_b_readiness/P0_HASH_MANIFEST.json",
+      "sha256": "d00b9d304fd87d98319a1b85315c38accbb83f758abe97b62c02a2fdb91cfdcd"
+    },
+    "unchanged_pilot_runner": {
+      "path": "scripts/run_p1_calibration_prior_20260915.py",
+      "sha256": "519d1e2631c46395139e401e4dcb3ec7dcecdf27f44fae191b186463030edbac"
+    },
+    "pilot_external_audit": {
+      "path": "paper_b_readiness/P1_EXTERNAL_AUDIT_V4_RECEIPT_20260916.json",
+      "sha256": "587d6d098338acd47e079265d612efc73e054f292345d8685702adb3f5eb3549"
+    },
+    "formal_unit_engine": {
+      "path": "scripts/run_p1_formal_unit_v5_20260916.py",
+      "sha256": "41d4311ea93eb622b2e08fd9098c941a18daeaae8264c085a41b309a0741750f"
+    },
+    "formal_orchestrator": {
+      "path": "scripts/run_p1_formal_orchestrator_v7_20260916.py",
+      "sha256": "89feb3433063bba330011fffa88d81aca86259328ead62092debe3bb448e39f0"
+    },
+    "hermetic_repair_tests": {
+      "path": "scripts/test_run_p1_formal_unit_v7_20260916.py",
+      "sha256": "5303884a5bfe6132bc46a59421284564c785a4da825a5dd76589396c7dcbf6e4",
+      "expected_pass_count": 22
+    },
+    "result_blind_source_audit": {
+      "path": "paper_b_readiness/P1_PREP/P1_V2_REPAIR_INDEPENDENT_RESULT_BLIND_SOURCE_AUDIT_V1_20260916.json",
+      "sha256": "c6e63775df62db702c870aacb262e2ae24f3fccc064d567aa5d4a09db4cba493"
+    },
+    "prior_v3_frozen_spec": {
+      "path": "paper_b_readiness/P1_FORMAL_ORCHESTRATION_SPEC_V3_20260916.json",
+      "sha256": "af388b83dc517ea3d5566e4a6ded6caeb88d797e373aebd94be83f4dbb1f5bc9"
+    },
+    "prior_v3_final_independent_fail": {
+      "path": "paper_b_readiness/P1_PREP/P1_V3_FINAL_CHAIN_INDEPENDENT_PRE_OUTCOME_AUDIT_V1_20260916.json",
+      "sha256": "3f22022be9166cd1951d3d206ad8ba071be181f4df70345a01c97091db38e4de"
+    },
+    "prior_v4_frozen_spec": {
+      "path": "paper_b_readiness/P1_FORMAL_ORCHESTRATION_SPEC_V4_20260916.json",
+      "sha256": "5769279c904697f6b51fd2444d634341438efa84051af9a1dd52d2a31700fa00"
+    },
+    "prior_v4_engine_receipt": {
+      "path": "paper_b_readiness/P1_FORMAL_ENGINE_AUDIT_V4_20260916.json",
+      "sha256": "b9f6fc19ac887862b0ad9ef048974f1fa1cd1ac2e5efe8e4dd956d1847df61fc"
+    },
+    "prior_v5_frozen_spec": {
+      "path": "paper_b_readiness/P1_FORMAL_ORCHESTRATION_SPEC_V5_20260916.json",
+      "sha256": "abed871df006a5cdfddc029b0b4e34283c602edc314fc4c47e58b807c81be951"
+    },
+    "prior_v5_engine_receipt": {
+      "path": "paper_b_readiness/P1_FORMAL_ENGINE_AUDIT_V5_20260916.json",
+      "sha256": "a43a0527f49e980ee3a9065a5023c0425209b5946aaf214767aa790987041e9e"
+    },
+    "unchanged_cbis_generation_producer": {
+      "path": "src/paper_b_cbis_p3.py",
+      "sha256": "e73ab8d090dbc6b98357e9fa31e1430a66c3b35edc5382fc35f28868595bf851"
+    },
+    "prior_v6_frozen_spec": {
+      "path": "paper_b_readiness/P1_FORMAL_ORCHESTRATION_SPEC_V6_20260916.json",
+      "sha256": "a9d713fda19a7f8227248a53616a1733817ed1766c337e23fb38f156a99ba9ef"
+    },
+    "prior_v6_engine": {
+      "path": "scripts/run_p1_formal_unit_v4_20260916.py",
+      "sha256": "8a632d0711885f6ac6f51991c172fcc2eaabbf0829b3de1a69cf5a42fd848284"
+    },
+    "prior_v6_orchestrator": {
+      "path": "scripts/run_p1_formal_orchestrator_v6_20260916.py",
+      "sha256": "cc78a0548e325d55ffe46abf22764c1a480f00bd0f4187717124b90923bb5210"
+    },
+    "unchanged_derm_generation_producer": {
+      "path": "src/paper2_mpjc/pilot.py",
+      "sha256": "20796d10f1f2615d495240406b677791e74d0dfe0dfb4ea7c1bcf19ef37511ab"
+    },
+    "unchanged_complete_archive_producer": {
+      "path": "scripts/run_deadline_nested_20260912.py",
+      "sha256": "604e0a75d86d8a42dd5704cc3737fe7753b4813eb4f36236f87c5473542a7f65"
+    }
+  },
+  "bounded_repair": {
+    "trigger": "The first V2 formal attempt returned no payload and left an empty retained staging directory. Static diagnosis found a deterministic archive-contract defect: the old engine required one selection row although the frozen archive stores an ordered six-candidate curve.",
+    "dynamic_failure_location_claimed": false,
+    "repair_limit": "Validate the complete frozen six-C curve, add fixed stage/error-code failure receipts, suppress raw child stderr, reject malformed or duplicate-key receipts, and separate the V3 trust-chain paths.",
+    "unchanged": [
+      "scientific question and contrasts",
+      "development datasets and 30 ordered units",
+      "splits, arms, estimands, candidate grid, model families, and seeds",
+      "input whitelist and output schemas",
+      "official-test seal"
+    ],
+    "old_sources_and_gate_documents_preserved": true,
+    "v4_followup": {
+      "trigger": "Independent V3 final-chain audit: 14 of 15 tests passed. The remaining test incorrectly required the frozen specification and future audit/authorization files to remain absent throughout their lifecycle.",
+      "source_change": "New V4 orchestrator is a mechanical copy changing only its title and three versioned gate paths. New test copy tests exact distinct versioned path constants, without probing live gate-document absence. No model, computation, input, result schema, unit order, or scientific hypothesis changes.",
+      "old_v3_sources_specification_tests_and_fail_preserved": true
+    },
+    "v5_followup": {
+      "trigger": "V4 failed before fits/publication at COMPUTE_STRUCTURE_CONTRACT. Result-blind development-cache metadata inspection found archived seconds timing metadata and fold concatenation differing from sorted T row order.",
+      "source_change": "Accept the exact archived seconds field in both domains; require unordered H partition equality plus unique T/E, sum(H sizes)=size(T), and T/E/H exclusions. Local row-to-position mapping already preserves OOF alignment. Extract this same validation as a pure helper and add two invented-data regression tests. Orchestrator changes only versioned gate paths and engine path.",
+      "scientific_scope_change": false,
+      "old_sources_specs_authorizations_receipts_failed_staging_preserved": true,
+      "formal_fits_before_failure": 0
+    },
+    "v6_followup": {
+      "trigger": "V5 failed before fits/publication at COMPUTE_GENERATION_LINEAGE with E_FORMAL_CONTRACT. The first CBIS unit's permitted structural metadata and unchanged producer establish that H manifests use fit_heldout_patient_disjoint, while the final_outer_train_probe manifest uses patient_disjoint.",
+      "concrete_assertion": "Engine V3 resolve_cbis_manifests line 607 queried final.fit_heldout_patient_disjoint, which is absent in the frozen final manifest; the required True comparison therefore fails.",
+      "source_change": "Engine V4 changes only that final-manifest lookup to patient_disjoint and preserves strict is True, fit/validation patient hashes, outer fold, final placement, nested-panel absence, H resolution and selection projection checks. V6 orchestrator changes only its title and distinct versioned engine/spec/audit/authorization paths.",
+      "synthetic_regression": "Two invented-only tests accept the producer's final patient_disjoint schema with permuted H mapping and reject nine final disjointness/scope mutations: missing, false, integer, string, legacy alias, wrong fit digest, wrong validation digest, wrong outer fold, nonempty nested panel.",
+      "structural_inspection_boundary": "Only first-unit generation manifest field names, structural fold/count/role/exclusion metadata, panel field names and t/e/f/h row indices, cohort field names and outer_fold/complete_concept_eligible row controls, and the named failed staging entry names were inspected. No label arrays, predictions, metrics, scientific outcomes or official-test assets were accessed.",
+      "scientific_scope_change": false,
+      "old_sources_specs_authorizations_receipts_failed_staging_preserved": true,
+      "retained_failed_staging": "paper_b_readiness/p1_complete/units/.cbis_r0_f0.staging-582625-3b0898cdf82c456a9c63e3c801c20449",
+      "retained_failed_staging_entry_count": 0,
+      "formal_fits_before_failure": 0,
+      "formal_execution_or_authorization_performed_by_repair": false
+    },
+    "v7_followup": {
+      "trigger": "The first V6 unit failed at COMPUTE_NESTED_FITS with E_FORMAL_CONTRACT. Permitted first-unit structural checks all passed; all twelve nested CBIS concept_fits lists contain ten concept-fit records plus the producer's trailing prediction-range record.",
+      "concrete_assertion": "Engine V4 prior_lineage_records lines 487-490 maps every record by item.get('concept'). The trailing prediction record creates an eleventh 'None' key and deterministically triggers CBIS frozen concept-fit set changed.",
+      "source_change": "Engine V5 adds a pure strict reader for the exact nine-key concept records and, only for nested G OOF calls, one trailing exact seven-key prediction manifest. It verifies unique concept identity, prediction role, row/patient counts, row digest, strict Boolean exclusion flags, zero overlap and actual patient disjointness. H and final calls still require exactly ten concept records. Existing concept fit count/state/hash checks and every model computation, split, selection, restoration, calibration, output and cost counter are unchanged. V7 orchestrator changes only its title and four versioned source/gate paths.",
+      "synthetic_regression": "Three invented-only tests accept nested ten-plus-one records, preserve exact-ten H/final records and reject twenty-five malformed schema/scope mutations. They assert no fit_head calls. All twenty-two hermetic tests pass; all forty-eight orchestrator self-tests pass.",
+      "remaining_reader_review": "One bounded source comparison covered CBIS H/final/nested manifests, concept/prediction records, panel and archive fields, Derm manifest hashes and frozen subfold seeds, ordered six-C selections, archived head fields and COMPLETE identity. No other static field-name/schema incompatibility was found. Numerical reproduction is not claimed by this source-only repair.",
+      "structural_inspection_boundary": "Only first-unit panel field names, ids/groups and T/E/F/H row indices, generation record field names, concept identities, fold/scope/count/exclusion metadata and row/group hashes were inspected. No actual y/gold/raw/x/z, labels, predictions, metrics/performance/scientific outcomes, authorization documents or official-test assets were read.",
+      "pre_failure_fits_inferred_from_source": {
+        "head_fits": 19,
+        "affine_fits": 0,
+        "outer_head_fits": 0,
+        "upstream_concept_fits": 0,
+        "basis": "Engine V4 lines 847-848 execute six C times three G reference fits plus one reference-H final fit before the first nested prior-lineage call at 855-858."
+      },
+      "scientific_scope_change": false,
+      "old_sources_specs_authorizations_receipts_failed_staging_preserved": true,
+      "retained_failed_staging": "paper_b_readiness/p1_complete/units/.cbis_r0_f0.staging-589914-64882e29631c417cb976da681ea47597",
+      "formal_execution_or_authorization_performed_by_repair": false
+    }
+  },
+  "formal_scope": {
+    "unit_count": 30,
+    "ordered_units_sha256": "76c7c9e2fbd8e9fe7318e7fa3d5a18aa349d7ccb90af8e6a4423c9c62dcd1e2b",
+    "ordered_units": [
+      "cbis_r0_f0",
+      "cbis_r0_f1",
+      "cbis_r0_f2",
+      "cbis_r0_f3",
+      "cbis_r0_f4",
+      "derm_r0_f0",
+      "derm_r0_f1",
+      "derm_r0_f2",
+      "derm_r0_f3",
+      "derm_r0_f4",
+      "derm_r1_f0",
+      "derm_r1_f1",
+      "derm_r1_f2",
+      "derm_r1_f3",
+      "derm_r1_f4",
+      "derm_r2_f0",
+      "derm_r2_f1",
+      "derm_r2_f2",
+      "derm_r2_f3",
+      "derm_r2_f4",
+      "derm_r3_f0",
+      "derm_r3_f1",
+      "derm_r3_f2",
+      "derm_r3_f3",
+      "derm_r3_f4",
+      "derm_r4_f0",
+      "derm_r4_f1",
+      "derm_r4_f2",
+      "derm_r4_f3",
+      "derm_r4_f4"
+    ],
+    "selectors_exposed": [],
+    "official_test_allowed": false,
+    "per_unit_hypothesis_judgment_allowed": false
+  },
+  "scientific_contract": {
+    "arms": [
+      "R",
+      "S",
+      "C",
+      "M",
+      "SP",
+      "CP",
+      "MP"
+    ],
+    "primary_contrast": "C_minus_M",
+    "secondary_contrasts": [
+      "S_minus_SP",
+      "S_minus_C",
+      "CP_minus_MP",
+      "M_minus_MP"
+    ],
+    "primary_metric": "class_equal_NLL",
+    "secondary_metrics": [
+      "AUC",
+      "natural_frequency_NLL",
+      "Brier"
+    ],
+    "aggregate_bootstrap_draws": 10000,
+    "bootstrap_seed": 2026091517,
+    "resource_scales_are_descriptive_not_equivalence_margins": {
+      "class_equal_NLL": 0.005,
+      "AUC": 0.01
+    }
+  },
+  "compute_contract": {
+    "execution": "CPU-only, single-threaded, literal unit order, one subprocess at a time",
+    "upstream_concept_fits": 0,
+    "per_cbis_unit": {
+      "head_fits": 151,
+      "affine_fits": 2,
+      "prior_restoration_calls": 17,
+      "prior_concept_records": 170
+    },
+    "per_derm_unit": {
+      "head_fits": 175,
+      "affine_fits": 2,
+      "prior_restoration_calls": 21,
+      "prior_concept_records": 147
+    },
+    "aggregate": {
+      "head_fits": 5130,
+      "affine_fits": 60,
+      "prior_restoration_calls": 610,
+      "prior_concept_records": 4525
+    }
+  },
+  "input_contract": {
+    "files_per_unit": 12,
+    "rule": "Exactly six hash-pinned domain controls plus six hash-pinned files from the named existing complete-run archive; no wildcard, directory discovery, or user-selected path.",
+    "archive_files": [
+      "panel.npz",
+      "generation.json",
+      "predictions.csv",
+      "selection.json",
+      "heads.json",
+      "COMPLETE.json"
+    ],
+    "hash_authorities": [
+      "paper_b_readiness/P0_HASH_MANIFEST.json",
+      "paper_b_readiness/P1_PROTOCOL.json fixed_inputs"
+    ],
+    "rehash_points": [
+      "before execution",
+      "after computation",
+      "before verified resume"
+    ]
+  },
+  "publication_contract": {
+    "engine_payload_files": [
+      "predictions.csv",
+      "calibration_oof.csv",
+      "per_case_effects.csv",
+      "metrics.csv",
+      "paired_effects.csv",
+      "selections.json",
+      "calibrators.json",
+      "prior_lineage.json",
+      "lineage.json",
+      "audit.json",
+      "fit_cost.json",
+      "run.log"
+    ],
+    "orchestrator_files": [
+      "execution_manifest.json",
+      "COMPLETE.json"
+    ],
+    "published_file_count": 14,
+    "atomic_directory_publication": true,
+    "complete_written_last": true,
+    "failed_staging_retained_for_forensics": true,
+    "resume_requires_full_revalidation": true
+  },
+  "repair_failure_channel": {
+    "engine_failure_receipt": "Exactly one UTF-8 JSON line with exactly status, stage, error_code, official_test_accessed, and hypothesis_judgment_performed.",
+    "data_bearing_exception_text_allowed": false,
+    "raw_stderr_propagation_allowed": false,
+    "orchestrator_acceptance": "Maximum 1024 bytes; exact allowlisted values and Boolean false flags; duplicate keys, extra keys, stdout, malformed JSON, multiline input, unknown values, and oversize input fail closed."
+  },
+  "formal_audit_overlay": {
+    "prepublication_ids": [
+      "F01",
+      "F02",
+      "F03",
+      "F04",
+      "F05",
+      "F06",
+      "F07",
+      "F08",
+      "F09",
+      "F10",
+      "F11",
+      "F12",
+      "F13",
+      "F14",
+      "F15",
+      "F16",
+      "F17",
+      "F18",
+      "F19"
+    ],
+    "publication_id": "F20",
+    "requirements": [
+      "all ticketed protocol, P0, source, spec, audit, authorization, and fixed-input hashes match",
+      "all nested fit, selection, calibration, group-exclusion, prior-lineage, ordering, reproduction, cost, and access-boundary checks pass",
+      "no bootstrap or hypothesis judgment occurs within a unit",
+      "publication manifest covers every payload and final revalidation passes"
+    ]
+  },
+  "synthetic_checks": {
+    "orchestrator_self_test_status": "PASS",
+    "repair_test_status": "PASS_22_OF_22",
+    "real_project_inputs_read_by_repair_tests": false,
+    "p1_outcomes_read": false,
+    "official_test_accessed": false,
+    "orchestrator_self_test_pass_count": 48
+  },
+  "forbidden_actions": [
+    "changing the frozen science after observing P1 outcomes",
+    "using pilot values as scientific evidence",
+    "selecting a subset of units, seeds, models, or contrasts after outcomes",
+    "opening, listing, or using an official held-out test asset",
+    "treating this specification or a source-only PASS as execution authorization",
+    "overwriting any legacy engine/orchestrator sources, specifications, audit receipts, authorizations, failure records or retained staging directories"
+  ],
+  "required_v7_gate_chain": {
+    "engine_audit_path": "paper_b_readiness/P1_FORMAL_ENGINE_AUDIT_V7_20260916.json",
+    "authorization_path": "paper_b_readiness/P1_FORMAL_AUTHORIZATION_V7_20260916.json",
+    "order": [
+      "freeze this V7 specification and its SHA-256",
+      "independent bounded pre-outcome audit of the exact final engine, orchestrator, tests, specification, and frozen anchors",
+      "write the exact V7 engine-audit receipt only on independent PASS",
+      "write a fresh pre-outcome V7 authorization pinning the complete engine-audit receipt",
+      "run the fixed 30 development units serially"
+    ],
+    "legacy_generic_audit_or_authorization_accepted": false,
+    "current_decision": "FAIL_CLOSED_PENDING_V7_ENGINE_AUDIT_AND_AUTHORIZATION"
+  }
+}

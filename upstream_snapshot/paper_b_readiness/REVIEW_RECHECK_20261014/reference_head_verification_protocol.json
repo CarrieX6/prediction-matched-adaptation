@@ -1,0 +1,13 @@
+{
+  "date": "2026-10-14",
+  "purpose": "Independent verification of the already-trained reference-input head R; not an additional oracle arm.",
+  "scope": "All 5 archived CBIS-DDSM units and all 25 archived Derm7pt units.",
+  "reference_input": "Archived reference annotations; diagnostic training restricted to each outer training set T.",
+  "selection": "Refit balanced L2 logistic regression for each C in [0.001,0.01,0.1,1,10,100] on each of four archived inner training sets; select mean class-equal validation NLL; first grid value on exact ties.",
+  "final_fit": "Fresh fit on gold[T],y[T]; evaluate gold[E] for R and val for S. No selection uses E.",
+  "convergence": "Convergence warnings are errors.",
+  "tolerance": 1e-07,
+  "random_state": 20260912,
+  "threads": 1,
+  "export": "Aggregate discrepancies and selected regularization values only; no patient identifiers, predictions, or coefficients."
+}

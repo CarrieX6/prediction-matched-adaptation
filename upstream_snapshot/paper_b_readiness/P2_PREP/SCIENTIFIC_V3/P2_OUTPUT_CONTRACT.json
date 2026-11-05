@@ -1,0 +1,110 @@
+{
+  "contract_id": "paper_b_p2_scientific_output_v3",
+  "status": "CANDIDATE_NOT_FROZEN",
+  "unit_files": [
+    "predictions.csv",
+    "selection.csv",
+    "fit_diagnostics.csv",
+    "fitted_heads.json",
+    "lineage.json",
+    "exact_equivalence.json",
+    "affine.csv",
+    "COMPLETE.json"
+  ],
+  "aggregate_files": [
+    "arm_metrics.csv",
+    "seedwise_effects.csv",
+    "paired_effects.csv",
+    "bootstrap_draws.csv",
+    "exact_equivalence.json",
+    "SOURCE_RECEIPT.json",
+    "RUN_LOG.json",
+    "COMPLETE.json"
+  ],
+  "predictions": {
+    "granularity": "one_outer_case_per_core_arm_and_refit_seed",
+    "required": [
+      "domain",
+      "repetition",
+      "outer_fold",
+      "outer_unit",
+      "case_id",
+      "patient_group",
+      "label",
+      "representation",
+      "temperature",
+      "head",
+      "selected_hyperparameter",
+      "refit_seed",
+      "probability",
+      "logit",
+      "was_clipped",
+      "probability_clip_epsilon",
+      "reference_category_rule",
+      "panel_sha256",
+      "lineage_sha256",
+      "scaler_sha256",
+      "head_sha256"
+    ]
+  },
+  "selection": {
+    "granularity": "every_candidate_every_inner_fold",
+    "required": [
+      "domain",
+      "repetition",
+      "outer_fold",
+      "outer_unit",
+      "representation",
+      "temperature",
+      "head",
+      "candidate_hyperparameter",
+      "inner_fold",
+      "selection_seed",
+      "class_equal_nll",
+      "selected",
+      "tie_rule",
+      "optimization_status",
+      "epochs_completed",
+      "standardizer_fit_case_count",
+      "zero_variance_coordinate_count",
+      "scaler_sha256",
+      "fit_case_id_sha256",
+      "validation_case_id_sha256"
+    ]
+  },
+  "diagnostics": {
+    "lr": "exact_solver_configuration_iterations_convergence_warnings_fallback_finite",
+    "mlp": "fixed_epochs_completed_gradient_parameter_loss_finiteness_weights_only_penalty_seed; no_LR_convergence_claim"
+  },
+  "lineage": {
+    "description": "archived_input_file_hashes_array_content_hashes_mapping_outer_inner_exclusion_manifests_training_scaler_rows_selection_receipts_and_final_head_rows",
+    "nested_G": "exact_per_G_fit_validation_case_or_patient_hashes_counts_partition_with_producer_fold_seed_reconstruction",
+    "cbis_final": "selection_manifest_projection_plus_original_P0_outer_fold_T_E_hashes",
+    "derm_final": "producer_has_no_separate_final_manifest; reconstruct_outer_T_E_and_record_no_additional_manifest_required",
+    "multiplicity": "producer_ids_hash_sorts_str_values_without_deduplication",
+    "producer_source_and_P0": "content_bound_in_SOURCE_BINDING"
+  },
+  "exact": "reviewed_synthetic_gate_plus_real_unstandardized_analytic_and_fixed_refit_controls_plus_standardized_same_C_and_selected_head_controls; all_strict_lt1e-5",
+  "aggregation": "stitch_folds_casewise_repetition_losses_seedwise_metrics_direct_paired_interactions_no_probability_ensembles",
+  "bootstrap": "10000_accepted_paired_cluster_draws_fixed_stream_with_multiplicity_digest_and_every_ordered_estimand",
+  "atomic_resume": "COMPLETE_last_all_file_hashes_and_source_binding_checked; incomplete_files_are_not_results",
+  "execution_authorized": false,
+  "official_test_accessed": false,
+  "representative_cost_files": [
+    "COST_RECEIPT.json",
+    "fit_diagnostics.csv",
+    "lineage.json",
+    "COMPLETE.json"
+  ],
+  "representative_cost": {
+    "scope": "six_predeclared_MLP_fits_only_no_validation_or_outer_predictions_scored",
+    "approval": "same_frozen_audited_root_authorization_required_before_panel_load",
+    "pilot": "cbis_r0_f0_inner0_soft_logodds_3lambda_seed17_tau1",
+    "completion": "atomic_files_COMPLETE_last_exact_hashes_binding_lineage_approval_recipe_diagnostics",
+    "full_execute": "must_validate_COMPLETE_cost_before_any_scientific_fit_reuse_six_diagnostics",
+    "unique_total_fits": 5000,
+    "maximum_new_fits_full_execute": 4994,
+    "forecast": "MLP_only_representative_cost_not_complete_runtime"
+  }
+}
+

@@ -1,0 +1,15 @@
+{
+  "status": "post-lock implementation identity record",
+  "protocol_reference": {
+    "model_id": "openai/clip-vit-base-patch16",
+    "revision": "57c216476eefef5ab752ec549e440a49ae4ae5f3"
+  },
+  "executed_checkpoint": {
+    "publisher": "OpenAI",
+    "model_name": "CLIP ViT-B/16",
+    "format": "JIT checkpoint",
+    "filename": "ViT-B-16.pt",
+    "sha256": "5806e77cd80f8b59890b7e101eabd078d9fb84e6937f9e85e4ecb61988df416f"
+  },
+  "reporting_rule": "The manuscript identifies the artifact actually loaded by publisher, model name, format, and SHA-256. The protocol reference is retained unchanged as the pre-outcome model-family record."
+}

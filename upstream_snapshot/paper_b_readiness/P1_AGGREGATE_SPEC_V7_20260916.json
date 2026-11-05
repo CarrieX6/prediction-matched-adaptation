@@ -1,0 +1,426 @@
+{
+  "status": "SOURCE_ONLY_CANDIDATE_PRE_OUTCOME",
+  "scope": "P1_COMPLETE_AGGREGATE",
+  "purpose": "Validate and aggregate the complete frozen P1 development run without per-unit or aggregate-layer hypothesis judgment.",
+  "protocol": {
+    "path": "paper_b_readiness/P1_PROTOCOL.json",
+    "sha256": "bdaca53493521a400f6307088d887eafa035f7eed4a094d522d05ee2ea5a1c1b"
+  },
+  "implementation": {
+    "path": "scripts/run_p1_complete_aggregate_v7_20260916.py",
+    "production_arguments": [],
+    "user_selectors_permitted": false,
+    "glob_or_recursive_discovery_permitted": false,
+    "official_test_path_represented": false,
+    "cpu_threads": 1,
+    "cuda_visible_devices": ""
+  },
+  "production_gate": {
+    "source_audit_path": "paper_b_readiness/P1_AGGREGATE_SOURCE_AUDIT_V7_20260916.json",
+    "authorization_path": "paper_b_readiness/P1_AGGREGATE_AUTHORIZATION_V7_20260916.json",
+    "templates_are_not_live_gates": true,
+    "required_before_any_unit_is_opened": true,
+    "source_audit_required_status": "PASS",
+    "authorization_required_status": "AUTHORIZED_PRE_OUTCOME",
+    "authorization_must_hash_anchor_source_audit": true,
+    "script_spec_protocol_and_units_digests_must_match": true,
+    "current_state": "BLOCKED_UNTIL_INDEPENDENT_SOURCE_AUDIT_AND_EXPLICIT_AUTHORIZATION"
+  },
+  "unit_scope": {
+    "digest_sha256": "76c7c9e2fbd8e9fe7318e7fa3d5a18aa349d7ccb90af8e6a4423c9c62dcd1e2b",
+    "directory_parent": "paper_b_readiness/p1_complete/units",
+    "directory_template": "{domain}_r{repetition}_f{outer_fold}",
+    "literal_order": [
+      "cbis_r0_f0",
+      "cbis_r0_f1",
+      "cbis_r0_f2",
+      "cbis_r0_f3",
+      "cbis_r0_f4",
+      "derm_r0_f0",
+      "derm_r0_f1",
+      "derm_r0_f2",
+      "derm_r0_f3",
+      "derm_r0_f4",
+      "derm_r1_f0",
+      "derm_r1_f1",
+      "derm_r1_f2",
+      "derm_r1_f3",
+      "derm_r1_f4",
+      "derm_r2_f0",
+      "derm_r2_f1",
+      "derm_r2_f2",
+      "derm_r2_f3",
+      "derm_r2_f4",
+      "derm_r3_f0",
+      "derm_r3_f1",
+      "derm_r3_f2",
+      "derm_r3_f3",
+      "derm_r3_f4",
+      "derm_r4_f0",
+      "derm_r4_f1",
+      "derm_r4_f2",
+      "derm_r4_f3",
+      "derm_r4_f4"
+    ],
+    "count": 30,
+    "extra_directory_discovery": "not performed; only the 30 literal paths are opened"
+  },
+  "unit_contract": {
+    "exact_regular_nonsymlink_files": [
+      "predictions.csv",
+      "calibration_oof.csv",
+      "per_case_effects.csv",
+      "metrics.csv",
+      "paired_effects.csv",
+      "selections.json",
+      "calibrators.json",
+      "prior_lineage.json",
+      "lineage.json",
+      "audit.json",
+      "fit_cost.json",
+      "execution_manifest.json",
+      "run.log",
+      "COMPLETE.json"
+    ],
+    "file_count": 14,
+    "manifest_hash_covered_payloads_in_order": [
+      "predictions.csv",
+      "calibration_oof.csv",
+      "per_case_effects.csv",
+      "metrics.csv",
+      "paired_effects.csv",
+      "selections.json",
+      "calibrators.json",
+      "prior_lineage.json",
+      "lineage.json",
+      "audit.json",
+      "fit_cost.json",
+      "run.log"
+    ],
+    "manifest_payload_count": 12,
+    "complete_written_last_and_links_manifest": true,
+    "complete_requires_publication_audit": "F20",
+    "formal_prepublication_audits_in_exact_order": [
+      "F01",
+      "F02",
+      "F03",
+      "F04",
+      "F05",
+      "F06",
+      "F07",
+      "F08",
+      "F09",
+      "F10",
+      "F11",
+      "F12",
+      "F13",
+      "F14",
+      "F15",
+      "F16",
+      "F17",
+      "F18",
+      "F19"
+    ],
+    "all_formal_prepublication_audits_must_be_true": true,
+    "paired_effects_pilot_descriptive_only_allowed_values": [
+      "false",
+      "0"
+    ],
+    "per_unit_hypothesis_judgment_allowed": [
+      null,
+      "NOT_PERMITTED_PER_UNIT"
+    ],
+    "lineage_access_boundary": {
+      "official_test_access": false,
+      "official_test_discovery_or_listing": false,
+      "input_whitelist_exact": true
+    },
+    "audit_schema_contract": "The aggregate layer requires a JSON object with the exact unit identity; an ordered checks object containing exactly F01--F19 with every value true; all_formal_prepublication_audits_pass=true; no all_formal_publication_audits_pass field; and hypothesis_judgment absent/null or NOT_PERMITTED_PER_UNIT. Other audit fields remain upstream-engine records and are not interpreted here. Any missing required field, unexpected audit ID, false value, premature publication assertion, or scientific judgment aborts aggregation.",
+    "common_manifest_anchors_required_equal_across_all_units": [
+      "p0_manifest_sha256",
+      "orchestrator_sha256",
+      "engine_sha256",
+      "spec_sha256",
+      "authorization_sha256",
+      "engine_audit_sha256"
+    ]
+  },
+  "csv_schemas": {
+    "predictions.csv": [
+      "domain",
+      "repetition",
+      "outer_fold",
+      "row_index",
+      "case_id",
+      "group_id",
+      "y",
+      "p_R",
+      "p_S",
+      "p_C",
+      "p_M",
+      "p_SP",
+      "p_CP",
+      "p_MP",
+      "logit_S",
+      "logit_C",
+      "logit_SP",
+      "logit_CP"
+    ],
+    "calibration_oof.csv": [
+      "domain",
+      "repetition",
+      "outer_fold",
+      "row_index",
+      "case_id",
+      "group_id",
+      "y",
+      "H",
+      "reference_C_H",
+      "raw_base_logit",
+      "prior_restored_base_logit",
+      "probe_fit_scope_sha256",
+      "reference_fit_scope_sha256"
+    ],
+    "per_case_effects.csv": [
+      "domain",
+      "repetition",
+      "outer_fold",
+      "row_index",
+      "case_id",
+      "group_id",
+      "y",
+      "arm",
+      "negative_log_likelihood",
+      "squared_probability_error",
+      "class_equal_nll_contribution"
+    ],
+    "metrics.csv": [
+      "domain",
+      "repetition",
+      "outer_fold",
+      "arm",
+      "class_equal_NLL",
+      "AUC",
+      "natural_frequency_NLL",
+      "Brier",
+      "n_cases",
+      "n_groups"
+    ],
+    "paired_effects.csv": [
+      "domain",
+      "repetition",
+      "outer_fold",
+      "contrast",
+      "class_equal_NLL_X_minus_Y",
+      "AUC_X_minus_Y",
+      "favourable_sign_NLL",
+      "pilot_descriptive_only"
+    ]
+  },
+  "arms_in_order": [
+    "R",
+    "S",
+    "C",
+    "M",
+    "SP",
+    "CP",
+    "MP"
+  ],
+  "contrasts_in_order": [
+    {
+      "name": "C_minus_M",
+      "X": "C",
+      "Y": "M",
+      "nll_favourable_sign": "negative_favours_C"
+    },
+    {
+      "name": "S_minus_SP",
+      "X": "S",
+      "Y": "SP",
+      "nll_favourable_sign": "positive_favours_SP"
+    },
+    {
+      "name": "S_minus_C",
+      "X": "S",
+      "Y": "C",
+      "nll_favourable_sign": "positive_favours_C"
+    },
+    {
+      "name": "CP_minus_MP",
+      "X": "CP",
+      "Y": "MP",
+      "nll_favourable_sign": "negative_favours_CP"
+    },
+    {
+      "name": "M_minus_MP",
+      "X": "M",
+      "Y": "MP",
+      "nll_favourable_sign": "positive_favours_MP"
+    }
+  ],
+  "merged_inputs": {
+    "files_in_order": [
+      "all_predictions.csv",
+      "all_calibration_oof.csv",
+      "all_per_case_effects.csv",
+      "all_metrics.csv",
+      "all_paired_effects.csv"
+    ],
+    "rule": "Each file is the exact literal-unit-order concatenation of the corresponding validated unit CSV, preserving row order and schema."
+  },
+  "point_estimators": {
+    "class_equal_NLL": "For each case and arm, average binary NLL across repetitions first. Then compute the mean within y=0 and within y=1 over cases and average the two class means with weight 0.5 each.",
+    "AUC": "Compute AUC separately within every repetition over its complete outer-fold case panel, then take the unweighted mean across repetitions.",
+    "natural_frequency_NLL": "For each case and arm, average binary NLL across repetitions first, then take the natural-frequency mean over cases.",
+    "Brier": "For each case and arm, average squared probability error across repetitions first, then take the natural-frequency mean over cases.",
+    "contrast": "For every named X_minus_Y contrast and metric, subtract the aggregate Y estimator from the aggregate X estimator.",
+    "case_identity_stability": "Within a domain, case_id must have one stable group_id and binary y across all repetitions, and every repetition must contain the same case set exactly once across the five outer folds."
+  },
+  "bootstrap": {
+    "method": "paired whole-cluster percentile bootstrap",
+    "seed": 2026091517,
+    "rng": "numpy.random.Generator(PCG64)",
+    "rng_stream_order": [
+      "cbis",
+      "derm"
+    ],
+    "valid_draws_per_domain": 10000,
+    "maximum_proposals_per_domain": 100000,
+    "cbis_cluster": "group_id/patient with all associated cases retained",
+    "derm_cluster": "case_id with all repetitions retained together",
+    "same_cluster_multiset_for_all_arms_and_contrasts_within_draw": true,
+    "missing_class_rule": "Reject a proposal if either binary class has zero sampled mass in any required repetition; draw again from the same RNG stream and abort the domain if 100000 proposals do not yield 10000 valid draws.",
+    "nll_and_brier": "Use the frozen case-first quantities under the sampled cluster multiplicities.",
+    "auc": "Within a draw compute weighted AUC separately in each repetition using the same case weights, then take the unweighted repetition mean.",
+    "interval": "two-sided 95 percent percentile interval using numpy.quantile at 0.025 and 0.975 with method=linear",
+    "bootstrap_rows_per_domain_per_valid_draw": 38,
+    "aggregate_rows_per_domain": 38
+  },
+  "aggregate_outputs": {
+    "directory": "paper_b_readiness/p1_complete/aggregate",
+    "exact_files": [
+      "all_predictions.csv",
+      "all_calibration_oof.csv",
+      "all_per_case_effects.csv",
+      "all_metrics.csv",
+      "all_paired_effects.csv",
+      "aggregate_effects.csv",
+      "bootstrap_effects.csv",
+      "aggregate_audit.json",
+      "execution_manifest.json",
+      "COMPLETE.json"
+    ],
+    "aggregate_effects_schema": [
+      "domain",
+      "effect_type",
+      "name",
+      "metric",
+      "estimate",
+      "ci_lower",
+      "ci_upper",
+      "n_bootstrap_valid",
+      "n_clusters",
+      "n_cases",
+      "n_repetitions",
+      "direction"
+    ],
+    "bootstrap_effects_schema": [
+      "domain",
+      "draw",
+      "proposal",
+      "effect_type",
+      "name",
+      "metric",
+      "value"
+    ],
+    "aggregate_audits_in_exact_order": [
+      "G01",
+      "G02",
+      "G03",
+      "G04",
+      "G05",
+      "G06",
+      "G07",
+      "G08",
+      "G09",
+      "G10",
+      "G11",
+      "G12",
+      "G13",
+      "G14",
+      "G15",
+      "G16",
+      "G17",
+      "G18"
+    ],
+    "aggregate_publication_audit": "G19",
+    "hypothesis_judgment": "NOT_PERMITTED_IN_AGGREGATION_LAYER",
+    "atomic_publication": "Create an exclusive lock and a new sibling staging directory, write and fsync payloads, write the manifest, write COMPLETE last, independently read back and recompute all merged/point/bootstrap results and hashes, fsync, then atomically rename the whole directory. Abort if the final path already exists.",
+    "hash_chain": "The manifest hashes all eight payload artifacts. COMPLETE hashes the manifest. The published directory and hash chain are checked again after rename."
+  },
+  "aggregate_audit_contract": {
+    "template_path": "paper_b_readiness/P1_AGGREGATE_AUDIT.template.json",
+    "required_prepublication_checks": "exact ordered G01--G18, all true",
+    "publication_check": "G19 is represented in COMPLETE only after atomic staging validation",
+    "official_test_access": false,
+    "official_test_discovery_or_listing": false,
+    "scientific_interpretation_performed": false
+  },
+  "failure_policy": {
+    "mode": "fail closed",
+    "no_partial_final_publish": true,
+    "no_overwrite_or_resume_into_final": true,
+    "no_schema_relaxation": true,
+    "no_missing_unit_tolerance": true,
+    "no_nonfinite_value_tolerance": true,
+    "no_seed_draw_or_scope_override": true
+  },
+  "schema_version": "P1_AGGREGATE_SPEC_V7",
+  "versioned_integration": {
+    "scientific_scope_change": false,
+    "change": "Only aggregate V7 source/gate/spec/test bindings and calibration OOF H validation corrected to the unchanged producer's zero-based four-fold IDs {0,1,2,3}; estimators, contrasts, pairing, bootstrap draws/seeds, payload schemas and publication contracts unchanged.",
+    "preserved_predecessor": {
+      "script_path": "scripts/run_p1_complete_aggregate_v6_20260916.py",
+      "script_sha256": "4070b09852f20030f133d40727f1d4528f8527cf0f8389192157ad33a3f0b5a5",
+      "spec_path": "paper_b_readiness/P1_AGGREGATE_SPEC_V6_20260916.json",
+      "spec_sha256": "793123ac28e68230a1d664d6b6daea3e991d925f0542ae145414e7bd51bec5aa",
+      "tests_path": "tests/test_p1_complete_aggregate_synthetic_v6_20260916.py",
+      "tests_sha256": "48b40ffa7215994d8500ad70850fb9e1b345322abbbfa51183fb417957947042"
+    },
+    "formal_source_sha256": {
+      "orchestrator_sha256": "89feb3433063bba330011fffa88d81aca86259328ead62092debe3bb448e39f0",
+      "engine_sha256": "41d4311ea93eb622b2e08fd9098c941a18daeaae8264c085a41b309a0741750f",
+      "spec_sha256": "80baf0c8a4bace22de7932ddb752a77ce5227d9da6df9e34a329076741809afd"
+    },
+    "formal_manifest_paths": {
+      "protocol_path": "paper_b_readiness/P1_PROTOCOL.json",
+      "orchestrator_path": "scripts/run_p1_formal_orchestrator_v7_20260916.py",
+      "engine_path": "scripts/run_p1_formal_unit_v5_20260916.py",
+      "spec_path": "paper_b_readiness/P1_FORMAL_ORCHESTRATION_SPEC_V7_20260916.json",
+      "authorization_path": "paper_b_readiness/P1_FORMAL_AUTHORIZATION_V7_20260916.json",
+      "engine_audit_path": "paper_b_readiness/P1_FORMAL_ENGINE_AUDIT_V7_20260916.json"
+    }
+  },
+  "calibration_H_index_contract": {
+    "table": "calibration_oof.csv",
+    "field": "H",
+    "meaning": "zero-based heldout calibration fold index; not a regularization value",
+    "allowed_ids": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "producer_path": "scripts/run_p1_formal_unit_v5_20260916.py",
+    "producer_sha256": "41d4311ea93eb622b2e08fd9098c941a18daeaae8264c085a41b309a0741750f",
+    "producer_source_anchor": "compute: for h in range(4); calibration_rows.append writes H=h",
+    "non_integer_or_out_of_domain": "fail closed",
+    "reference_C_H_contract": "strictly positive finite regularization value; unchanged"
+  },
+  "synthetic_contract_tests": {
+    "path": "tests/test_p1_complete_aggregate_synthetic_v7_20260916.py",
+    "sha256": "a83a0a0fc4338b836798be0cb007302e076be9def2374c82eb1e9150636ff13d",
+    "new_regression": "test_zero_based_calibration_h_ids_are_legal_and_malformed_ids_fail",
+    "fixture_boundary": "fully invented, temporary hash-sealed unit only; no scientific outcome or official-test access"
+  }
+}

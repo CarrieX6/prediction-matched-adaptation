@@ -1,0 +1,141 @@
+{
+  "version": "P3_DEV_WRAPPER_SOURCE_V1_20260916",
+  "status": "SOURCE_ONLY_CANDIDATE_NOT_EXECUTED_NOT_P3_COMPLETE",
+  "authority_attachment_sha256": "90c49c65d60934c96c9f709efb4169b04465de958c77b64feee25e114158c1c1",
+  "scope": {
+    "datasets": [
+      "CBIS-DDSM Mass-Train development breast cohort",
+      "Derm7pt development609"
+    ],
+    "official_test_access_allowed": false,
+    "project_fits_run_during_preparation": false,
+    "U2_enabled": false
+  },
+  "representative": {
+    "unit": "cbis_r0_f0",
+    "inner_index": 0,
+    "logical_probe_calls": 760,
+    "formula": "4 legal F/G bundles x 10 concepts x (3 internal group folds x 6 C candidates + 1 final refit)",
+    "outer_prediction": false,
+    "final_outer_refit": false,
+    "production_cli": "--representative --execute --gate EXTERNAL_ROOT_GATE",
+    "halting_condition": "Publish verified representative COMPLETE and return; no downstream or further unit generation"
+  },
+  "upstream": {
+    "U0": "P0-hash-pinned archived complete-nested concept panels",
+    "U1": "Same frozen features and original legal F/Q scopes; conceptwise group3fold six-C selection on training-side class-equal concept NLL only",
+    "C_grid": [
+      0.001,
+      0.01,
+      0.1,
+      1,
+      10,
+      100
+    ],
+    "CBIS_minimum_state_count": 10,
+    "Derm_state_policy": "Present states only; singleton state constant probability; no diagnosis selection",
+    "feature_preprocessing": {
+      "CBIS": "Producer-normalized view vectors; arithmetic mean of existing 1/2 valid views; no mean renormalization",
+      "Derm": "Original development feature L2 row normalization"
+    },
+    "probe_logical_forecast": {
+      "CBIS": 10450,
+      "Derm7pt": 69825,
+      "total": 80275
+    },
+    "cost_distinctions": [
+      "logical calls including exact-cache reuse",
+      "unique probe bundles/cache misses",
+      "physical nonconstant candidate/final fits",
+      "constant-probability calls",
+      "fit component seconds and overall time",
+      "optimizer iterations/peak resident memory reported by U1 helper"
+    ]
+  },
+  "full_dev": {
+    "ordered_units": [
+      "cbis_r0_f0",
+      "cbis_r0_f1",
+      "cbis_r0_f2",
+      "cbis_r0_f3",
+      "cbis_r0_f4",
+      "derm_r0_f0",
+      "derm_r0_f1",
+      "derm_r0_f2",
+      "derm_r0_f3",
+      "derm_r0_f4",
+      "derm_r1_f0",
+      "derm_r1_f1",
+      "derm_r1_f2",
+      "derm_r1_f3",
+      "derm_r1_f4",
+      "derm_r2_f0",
+      "derm_r2_f1",
+      "derm_r2_f2",
+      "derm_r2_f3",
+      "derm_r2_f4",
+      "derm_r3_f0",
+      "derm_r3_f1",
+      "derm_r3_f2",
+      "derm_r3_f3",
+      "derm_r3_f4",
+      "derm_r4_f0",
+      "derm_r4_f1",
+      "derm_r4_f2",
+      "derm_r4_f3",
+      "derm_r4_f4"
+    ],
+    "upstreams": [
+      "U0",
+      "U1"
+    ],
+    "tau": 1,
+    "core_arms": [
+      "soft/lr",
+      "logodds/lr",
+      "soft/mlp",
+      "logodds/mlp"
+    ],
+    "reference_arm": "S",
+    "control": "Exactly one external root-frozen P1 accepted C/SP/CP/MP control shared U0/U1; cannot be chosen from P3 outcomes",
+    "MLP_seeds": [
+      17,
+      29,
+      43
+    ],
+    "full_factorial_enabled": false,
+    "gates": [
+      "External independent source PASS pinned to canonical source binding",
+      "External root mode-specific authorization",
+      "Verified exact representative COMPLETE and external cost acceptance",
+      "External root pre-P3-outcome P1 accepted control binding"
+    ]
+  },
+  "inference": {
+    "metrics": [
+      "class_equal_nll",
+      "natural_nll",
+      "auc",
+      "brier"
+    ],
+    "NLL_Brier_gain": "baseline - candidate",
+    "AUC_gain": "candidate - baseline",
+    "interactions": "Direct differences of paired gains",
+    "bootstrap_seed": 2026091517,
+    "accepted_replicates": 10000,
+    "maximum_proposals": 100000,
+    "clusters": {
+      "CBIS": "patient",
+      "Derm7pt": "case; all five repetitions remain together"
+    },
+    "MLP_summary": "Mean seed-specific metrics, not probability ensemble",
+    "crossing_zero": "Inconclusive, not equivalence",
+    "status": "Development comparisons conditional on fitted panels; not untouched confirmation"
+  },
+  "publisher": {
+    "method": "Exclusive sibling lock; unique same-filesystem staging; exact payload hash validation; COMPLETE; atomic rename",
+    "existing_complete": "Reuse full units only after exact binding/gate/scope and payload verification",
+    "failure": "Sibling quarantine with FAILED and payload hashes; fresh staging retry; no overwrites or unsafe resume",
+    "aggregate_resume": "No aggregate overwrite; an existing final aggregate fails safely"
+  }
+}

@@ -1,0 +1,190 @@
+{
+  "protocol_id": "paper_b_p2_scientific_v3_20260916",
+  "status": "CANDIDATE_NOT_FROZEN",
+  "scientific_execution_authorized": false,
+  "official_test_access_authorized": false,
+  "source": "results/deadline_nested_20260912",
+  "output": "results/neurocomputing_p2_scientific_v3_20260916",
+  "reviewed_component_sha256": "c9f183e30d700e0733ca6d40623fff43da5dcea6a949fb2ecdb8f679638f013c",
+  "reviewed_component_audit_sha256": "11253716cf9cf967e3b2b774ab248d0d724f903c7e5f50b4495cd47d8f6222c7",
+  "amendment": "Source-only V3 successor separates the predeclared six-fit MLP representative cost stage from full execution. Full execution requires its COMPLETE receipt and reuses six pilot diagnostics. All V2 scientific recipes, estimator/statistical math, lineage, tolerance and unique budget remain unchanged. No authorization or actual fit has been created.",
+  "execution": {
+    "device": "cpu",
+    "unit_order": "reviewed_component_EXPECTED_UNITS",
+    "unit_count": 30,
+    "parallel_units": 1,
+    "threads": 1,
+    "python_executable": "/home/xzf/.conda/envs/upenn_iclr2027_cu121/bin/python3.11",
+    "LD_LIBRARY_PATH": "unset",
+    "CUDA_VISIBLE_DEVICES": ""
+  },
+  "core": {
+    "temperatures": [
+      1,
+      0.25
+    ],
+    "representations": [
+      "soft",
+      "logodds"
+    ],
+    "heads": [
+      "lr",
+      "mlp"
+    ],
+    "hard_heads": "excluded_from_core",
+    "scaling": "training_fold_mean_and_population_sd; sd<=1e-12 replaced by1"
+  },
+  "lr": {
+    "solver": "newton-cholesky",
+    "class_weight": "balanced",
+    "C_grid": [
+      0.001,
+      0.01,
+      0.1,
+      1,
+      10,
+      100
+    ],
+    "fit_intercept": true,
+    "max_iter": 20000,
+    "tol": 1e-12,
+    "random_state": 0,
+    "tie_rule": "smallest_C"
+  },
+  "mlp": {
+    "architecture": [
+      "input",
+      32,
+      "GELU",
+      1
+    ],
+    "dropout": 0,
+    "optimizer": "Adam",
+    "learning_rate": 0.001,
+    "batching": "full_batch",
+    "epochs": 200,
+    "early_stopping": false,
+    "objective": "class_equal_mean_bce_plus_lambda_over_2_weight_l2",
+    "penalize_bias": false,
+    "lambda_grid": [
+      0.0001,
+      0.001,
+      0.01
+    ],
+    "selection_seed": 17,
+    "refit_seeds": [
+      17,
+      29,
+      43
+    ],
+    "tie_rule": "largest_lambda",
+    "dtype": "float64"
+  },
+  "temperature": {
+    "cbis_epsilon": 0.000001,
+    "derm_epsilon": 1e-12,
+    "clip_once_before_temperature": true,
+    "logodds_temperature": "base_reference_logodds/tau; no second clipping",
+    "derm_reference": "first_category_of_each_frozen_block",
+    "tau4": "exact_controls_only_no_triggered_expansion"
+  },
+  "selection": {
+    "inner_folds": 4,
+    "objective": "arithmetic_mean_of_inner_validation_class_equal_nll",
+    "folds": "archived_fi_hi_identical_across_representations",
+    "upstream": "reuse_archived_complete_nested_xi_zi_raw_val; do_not_regenerate"
+  },
+  "exact": {
+    "representative_units": [
+      "cbis_r0_f0",
+      "derm_r0_f0"
+    ],
+    "temperatures": [
+      0.25,
+      4
+    ],
+    "unstandardized": "each_inner_fold_each_C_refit_Ctau=tau^2*C_and_analytic_wtau=tau*w_btau=b",
+    "standardized": "same_C_inner_losses_and_selected_head_predictions_at_tau1_tau0.25_tau4",
+    "strict_tolerance": 0.00001,
+    "warning_fallback_nonfinite_nonconvergence": "fail_closed"
+  },
+  "pilot": {
+    "unit": "cbis_r0_f0",
+    "inner_fold": 0,
+    "heads": "mlp",
+    "representations": [
+      "soft",
+      "logodds"
+    ],
+    "temperature": 1,
+    "fits": 6,
+    "optimization_failure": "stop_without_recipe_change_or_search"
+  },
+  "affine": {
+    "domain": "cbis",
+    "fit": "diagonal_unlabelled_training_soft_to_logodds",
+    "panels": "four_inner_and_final_training_per_unit_temperature",
+    "comparison": "hold_fitted_logodds_head_fixed; never_refit_labels_for_proxy"
+  },
+  "statistics": {
+    "primary": "class_equal_nll",
+    "secondary": [
+      "auc",
+      "natural_nll",
+      "brier"
+    ],
+    "fold_rule": "stitch5folds_per_repetition",
+    "repetition_rule": "casewise_mean_losses_for_nll_brier; mean_repetition_auc",
+    "mlp_seed_rule": "matching_seed_contrasts_then_arithmetic_mean; never_probability_ensemble",
+    "contrasts": [
+      "D=logodds_minus_soft_loss",
+      "I_capacity=D_mlp_minus_D_lr",
+      "temperature_interaction=D_tau0.25_minus_D_tau1"
+    ],
+    "bootstrap_replicates": 10000,
+    "maximum_proposals": 100000,
+    "seed": 2026091517,
+    "rng": "Generator_PCG64_single_stream_cbis_then_derm",
+    "clusters": {
+      "cbis": "patient_group",
+      "derm": "case_id"
+    },
+    "interval": "linear_quantile_0.025_0.975",
+    "nll_resolution": 0.005,
+    "auc_resolution": 0.01,
+    "resolution_interpretation": "descriptive_resource_resolution_not_equivalence_or_clinical_margin"
+  },
+  "fit_counts": {
+    "core_lr": 3000,
+    "core_mlp": 1800,
+    "pilot_mlp": 6,
+    "unstandardized_exact_lr": 144,
+    "standardized_tau4_lr": 50,
+    "scientific_total": 5000,
+    "affine_coordinate_fits": 50
+  },
+  "gate": {
+    "freeze": "P2_FREEZE.json",
+    "audit": "P2_INDEPENDENT_AUDIT.json",
+    "authorization": "P2_EXECUTION_AUTHORIZATION.json",
+    "required_audit": "PASS_FULL_SCIENTIFIC_ORCHESTRATOR",
+    "all_three_documents": "externally_created_and_bound_to_SOURCE_BINDING_sha256; not_created_by_runner",
+    "scope": "development_only_no_official_test_no_P1"
+  },
+  "lineage": {
+    "cbis_control": "data/CBIS_DDSM/paper_b_cbis_mass_train_breast_cohort_v1_20260910.npz",
+    "cbis_control_sha256": "4d868f37a5daf2fa33f4b833d01da4c1476403b5d6fb157478451b9ce80f7725",
+    "derm_archived_seed": 2026090829,
+    "nested_G": "exact_producer_fit_validation_hashes_counts_and_partition",
+    "cbis_final": "exact_manifest_projection_and_P0_T_E_patient_hashes",
+    "derm_final": "archived_producer_T_E_scope_no_separate_final_manifest"
+  },
+  "representative_cost": {
+    "mode": "--measure-representative-cost",
+    "path": "results/neurocomputing_p2_scientific_v3_20260916/representative_cost",
+    "full_execute": "requires_COMPLETE_cost_receipt_and_reuses_6_pilot_diagnostics",
+    "pilot_recipe_changed": false,
+    "unique_total_fits": 5000
+  }
+}
+

@@ -1,0 +1,65 @@
+{
+  "status": "post-review exploratory supplements; original primary results retained",
+  "non_concept_controls": {
+    "dimensions": {
+      "cbis": 10,
+      "derm": 12
+    },
+    "PCA": "fit on allowed F or T embeddings only; H/E excluded; shared coordinate system within each head fit",
+    "random_projection_seeds": [
+      20261025,
+      20261026,
+      20261027
+    ],
+    "projection": "fixed orthonormal Gaussian directions; all seeds reported, no best-seed selection",
+    "scaling": "training-only coordinate standardization for PCA, random, and matched soft-score control",
+    "selection": "six original C values, mean of four inner-H class-equal NLLs; smallest C on ties"
+  },
+  "L1": {
+    "solver": "liblinear",
+    "seed": 20261028,
+    "scaling": "training-only standardization",
+    "C_grid": [
+      0.001,
+      0.01,
+      0.1,
+      1.0,
+      10.0,
+      100.0
+    ],
+    "selection": "four inner-H validation losses; no outer or external selection"
+  },
+  "CBIS_repeat": {
+    "new_partition_seeds": [
+      20261031,
+      20261032
+    ],
+    "outer": "5-fold StratifiedGroupKFold, patient groups",
+    "upstream": "full nested refit, fixed probe C=1, minimum state support=10; no reuse of old OOF predictions",
+    "heads": "original raw-score M and four-coefficient Cflex; full-chain reference-head exclusion",
+    "failure": "report a fixed-support failure; do not change support or seed"
+  },
+  "learning_curve": {
+    "domain": "CBIS original partition",
+    "fractions": [
+      0.5,
+      0.75,
+      1.0
+    ],
+    "seed": 20261033,
+    "scope": "diagnostic-head training size only; archived nested upstream panels fixed",
+    "subset": "nested random patient subsets within each F/T, H/E unchanged; both heads use the same subset"
+  },
+  "PH2": {
+    "scope": "primary 25-model mean probabilities; class-specific distance associations and exact ranking-pair changes; no label-based fitting",
+    "distance": "Ledoit-Wolf on 609 source OOF mean score vectors, 12 free coordinates",
+    "decomposition": "mean per-model M minus reference logit; not a decomposition of the nonlinear Cflex probability"
+  },
+  "inference": {
+    "bootstrap": 10000,
+    "seed": 20261034,
+    "unit": "patients for CBIS, cases for Derm/PH2; same draw across arms and repetitions",
+    "scope": "conditional on fitted models; exploratory intervals, not multiplicity-adjusted"
+  },
+  "stop": "one execution of these recipes; null or unfavorable outcomes retained; no outcome-dependent extension"
+}

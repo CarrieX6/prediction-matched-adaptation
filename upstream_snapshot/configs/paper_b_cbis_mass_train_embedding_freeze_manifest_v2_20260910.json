@@ -1,0 +1,189 @@
+{
+  "config_path": "configs/paper_b_cbis_mass_train_embedding_protocol_v2_20260910.json",
+  "config_sha256": "dde854bf1e6ace2b624d896395de30aefc0b753ac9e7ca587a087c03f935d33c",
+  "date": "2026-09-10",
+  "determinism_contract": {
+    "archive_serialization": "fixed NPZ member order and 1980-01-01 ZIP timestamps",
+    "full_replay": "re-preprocess and re-encode all 1140 views in the identical CPU process after the formal pass",
+    "full_replay_max_abs_tolerance": 1e-06,
+    "full_replay_view_count": 1140,
+    "input_order": "lexicographic image_id order frozen in the input manifest",
+    "l2_norm_tolerance": 5e-06,
+    "seed": 20260910,
+    "shuffle": false,
+    "torch_deterministic_algorithms": true
+  },
+  "external_checkpoint": {
+    "bytes": 783705670,
+    "path": "/home/xzf/.cache/open_clip_hf_direct/microsoft__BiomedCLIP-PubMedBERT_256-vit_base_patch16_224/open_clip_pytorch_model.bin",
+    "sha256": "52cc993c5c5ff962bd0c60931874bc001e7e9b41666a385530f4a036294576be"
+  },
+  "external_technical_overlap_reference": {
+    "bytes": 1955240,
+    "formal_extraction_input_role": "none",
+    "path": "/home/Datasets/Medical/Medical_Datasets/ZhejiangFuyi/Spine/iclr2027_submission/data/CBIS_DDSM/cbis_mass_shape_biomedclip_mask_geometry.npz",
+    "permitted_arrays_after_formal_publication": [
+      "image_id",
+      "embeddings"
+    ],
+    "sha256": "82a33d404fa17a93d8c9e640ee8542cfd3e76c4e62941ccf72fcd65cceff0393"
+  },
+  "official_test_assets_accessed": false,
+  "output_contract": {
+    "archive_arrays": [
+      "image_id",
+      "local_dicom_path",
+      "source_dicom_sha256",
+      "embeddings",
+      "l2_norm",
+      "model_name",
+      "checkpoint_sha256"
+    ],
+    "archive_name": "view_embeddings.npz",
+    "audit_name": "embedding_audit.json",
+    "coverage": "exactly all and only the frozen 1140 image IDs, one row each",
+    "directory": "results/paper_b_cbis_mass_train_biomedclip_full_mammogram_v2_20260910",
+    "manifest_name": "OUTPUT_MANIFEST.json",
+    "overwrite": false,
+    "publication": "stage complete directory, reload and validate every artifact, then Linux renameat2(RENAME_NOREPLACE)",
+    "receipt_name": "per_view_receipts.csv"
+  },
+  "preprocessing_contract": {
+    "border_trim": "remove exactly five pixels from each of the four raster borders",
+    "breast_field_crop": "reuse p2_stagewise.dicom_io.breast_crop_indices (Mammo-CLIP ExtractBreast longest non-constant row/column run after <=40 background suppression); image pixels only; crop indices must be nonempty and contiguous",
+    "dicom_reader": "pydicom pixel_array through the existing audited p2_stagewise.dicom_io._read_single_full_image path; exactly one two-dimensional DICOM per frozen path",
+    "encoder_normalization": {
+      "mean": [
+        0.48145466,
+        0.4578275,
+        0.40821073
+      ],
+      "std": [
+        0.26862954,
+        0.26130258,
+        0.27577711
+      ]
+    },
+    "encoder_resize": "single-channel tensor from 384x256 to 224x224 with torch bilinear interpolation and align_corners=false, then repeat to RGB",
+    "first_resize": "single-channel [0,1] tensor to the actually audited local cache size 384x256 with torch bilinear interpolation and align_corners=false",
+    "implementation": "src/p2_stagewise/cbis_xonly_embedding_v2.py::preprocess_pixels_v2",
+    "intensity": "per-view global min-max to [0,255] float followed by np.rint and uint8; zero or non-finite dynamic range fails closed",
+    "legacy_cache_role": "resolution provenance and post-publication technical consistency audit only; never a formal extraction input",
+    "orientation": "preserve native stored pixel-array orientation; no laterality-based flip, rotation, or transpose",
+    "per_view_receipt": "record image key/path/source hash and bytes, photometric mode, original shape, breast crop bounds, normalized feature norm, and replay difference",
+    "photometric_inversion": "MONOCHROME1 -> max(pixel)-pixel after border trim; MONOCHROME2 unchanged; every other value fails closed",
+    "roi_or_mask_gate": false,
+    "source_hash_verification": "rehash and require the frozen SHA-256 for every source DICOM before first-pass encoding"
+  },
+  "project_files": {
+    "configs/paper_b_cbis_mass_train_breast_cohort_freeze_manifest_v1_20260910.json": {
+      "bytes": 1564,
+      "sha256": "523756849bf12f283234e7def67349bb77c1f7c0ea3933810528322e61745ede"
+    },
+    "configs/paper_b_cbis_mass_train_embedding_freeze_manifest_v1_20260910.json": {
+      "bytes": 7078,
+      "sha256": "6523e5be7eae1f4a2a7d7a237f9ffaeda9a9dba2e3c04ffbf12389ffeb298f0c"
+    },
+    "configs/paper_b_cbis_mass_train_embedding_protocol_v1_20260910.json": {
+      "bytes": 7488,
+      "sha256": "29edbbb9d73ab9c42d9bb295de82d63f2b542f60435a74cfcde8ca8482e1bb14"
+    },
+    "configs/paper_b_cbis_mass_train_embedding_protocol_v2_20260910.json": {
+      "bytes": 10607,
+      "sha256": "dde854bf1e6ace2b624d896395de30aefc0b753ac9e7ca587a087c03f935d33c"
+    },
+    "configs/paper_b_cbis_mass_train_p3_protocol_v1_20260910.json": {
+      "bytes": 5322,
+      "sha256": "fa668e4837209f2b05d0f783f386891c8e665acb97271ba935a5f1c5bfcfef1d"
+    },
+    "data/CBIS_DDSM/paper_b_cbis_mass_train_breast_cohort_v1_20260910.npz": {
+      "bytes": 134668,
+      "sha256": "4d868f37a5daf2fa33f4b833d01da4c1476403b5d6fb157478451b9ce80f7725"
+    },
+    "data/cbis_ddsm_mass_train/cache_pcpd_e0_384x256/_CACHE_COMPLETE.json": {
+      "bytes": 1416,
+      "sha256": "dcc3ded46ed26a3f89a89aea1df204e2cf79616d1fc71f6c037f1c72e2d476bf"
+    },
+    "data_manifests/paper_b_cbis_mass_train_breast_cohort_v1_20260910.csv": {
+      "bytes": 563943,
+      "sha256": "70ef2b8603c9d7823c787a4d7ea7187b59edc235eae0a41ae5c0cac807a4f2cf"
+    },
+    "data_manifests/paper_b_cbis_mass_train_embedding_input_audit_v1_20260910.json": {
+      "bytes": 1165,
+      "sha256": "1da3dc15bed8e8a73ceab4665e9cba3b3409aac9bb3e2aa73467d24eb96ecd98"
+    },
+    "data_manifests/paper_b_cbis_mass_train_embedding_input_v1_20260910.csv": {
+      "bytes": 222129,
+      "sha256": "008d9688fddc580380b18c987dd855f438c6569a2f5a0b45587a796ac69b5ba7"
+    },
+    "scripts/audit_paper_b_cbis_embedding_legacy_overlap_v2.py": {
+      "bytes": 7235,
+      "sha256": "8e96cef0b721020110650e8d76102291ac26fcb4c648596dca36a837aef38f5e"
+    },
+    "scripts/build_paper_b_cbis_embedding_input_manifest.py": {
+      "bytes": 4662,
+      "sha256": "cbbe7fb7a6428565f00c0f700d41c24c1ee41921bef6d75351792c8be07906e9"
+    },
+    "scripts/extract_paper_b_cbis_full_mammogram_biomedclip.py": {
+      "bytes": 14421,
+      "sha256": "a8441dd2e77ce8e55b0c0e74f84ed935dcd62a4505be7867a532dba167c2e378"
+    },
+    "scripts/extract_paper_b_cbis_full_mammogram_biomedclip_v2.py": {
+      "bytes": 12818,
+      "sha256": "97157842792e396e9fbf636e2d838127b1df0256fdb130f3693dea271b362315"
+    },
+    "scripts/freeze_paper_b_cbis_embedding_v2.py": {
+      "bytes": 7494,
+      "sha256": "7617f06e302b087e5713e1eba1af9f1790a977cabf485b122501401df479f39f"
+    },
+    "src/p2_stagewise/cbis_xonly_embedding.py": {
+      "bytes": 14860,
+      "sha256": "1b35557d278bc4136d49782e25ad545bd13f5d7562531f554922a1c6771ea477"
+    },
+    "src/p2_stagewise/cbis_xonly_embedding_v2.py": {
+      "bytes": 5388,
+      "sha256": "a773c815bca2a0216be6bc843b4d114cc48ad441dc3b8c7d1b816bb13179b3b3"
+    },
+    "src/p2_stagewise/dicom_io.py": {
+      "bytes": 6698,
+      "sha256": "f532d7f8e58d9e2b87238aed59e7bf7b088f8fefe259ae99c5a69baa1809687c"
+    },
+    "tests/test_paper_b_cbis_xonly_embedding_v2.py": {
+      "bytes": 5044,
+      "sha256": "b10da10a4854c91df563bfe57867854896b7f4e6323162b32342b0e0bedd1c79"
+    }
+  },
+  "runtime": {
+    "batch_size": 16,
+    "cuda_visible_devices": "",
+    "data_loader_workers": 0,
+    "device": "cpu",
+    "invocation": ".venv/bin/python",
+    "packages": {
+      "numpy": "1.26.4",
+      "pandas": "2.2.2",
+      "pillow": "10.3.0",
+      "pydicom": "3.0.2",
+      "timm": "1.0.7",
+      "torch": "2.1.0+cu121",
+      "torchvision": "0.16.0+cu121"
+    },
+    "platform": "Linux-5.15.0-113-generic-x86_64-with-glibc2.31",
+    "python": "3.11.9",
+    "python_executable_resolved": "/home/xzf/.conda/envs/upenn_iclr2027_cu121/bin/python3.11",
+    "torch_num_interop_threads": 1,
+    "torch_num_threads": 8
+  },
+  "schema_version": "paper-b-cbis-full-mammogram-embedding-freeze-v2",
+  "scientific_outcomes_computed": false,
+  "source_dicoms": {
+    "count": 1140,
+    "individual_sha256_frozen_in": "data_manifests/paper_b_cbis_mass_train_embedding_input_v1_20260910.csv",
+    "input_manifest_sha256": "008d9688fddc580380b18c987dd855f438c6569a2f5a0b45587a796ac69b5ba7",
+    "ordered_source_digest_sha256": "46098c77638401ca098d95a7d95fdf7bbcab018d79504a2b5d004fa198aee655",
+    "total_bytes": 38340645414
+  },
+  "status": "FROZEN_BEFORE_EXTRACTION_NO_SCIENTIFIC_OUTCOME",
+  "supersedes_unexecuted_v1": true,
+  "v1_output_exists_at_v2_freeze": false
+}

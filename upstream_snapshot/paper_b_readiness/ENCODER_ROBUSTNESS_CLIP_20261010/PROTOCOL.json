@@ -1,0 +1,42 @@
+{
+  "protocol_version": "1.0",
+  "locked_at": "2026-10-10T00:00:00+08:00",
+  "objective": "Test whether the Analysis 1 vector-refitting advantage is retained when BiomedCLIP is replaced by an architecturally matched general-domain CLIP image encoder.",
+  "encoder": {
+    "model_id": "openai/clip-vit-base-patch16",
+    "revision": "57c216476eefef5ab752ec549e440a49ae4ae5f3",
+    "output_dimension": 512,
+    "normalization": "L2 normalization per image embedding"
+  },
+  "cohorts": {
+    "CBIS-DDSM": "655 complete breast cases from the locked Paper B development cohort",
+    "Derm7pt": "609 cases from the locked Paper B development cohort"
+  },
+  "fixed_elements": [
+    "The existing cohort membership, labels, patient groups, outer folds, inner exclusions, and image preprocessing are retained.",
+    "Only the frozen image encoder is changed.",
+    "Concept probes use balanced logistic regression with C=1.",
+    "Analysis 1 includes S, C, C_flex, and M.",
+    "Diagnostic-head selection uses C in [0.001, 0.01, 0.1, 1, 10, 100] and the existing four-fold inner procedure.",
+    "Affine calibration uses the existing positive-slope L-BFGS-B implementation.",
+    "C_flex uses the existing restricted-cubic-spline representation, knots, capacity, and selection procedure."
+  ],
+  "outcomes": {
+    "absolute": ["class-equal NLL", "AUC"],
+    "paired_contrasts": ["C_flex to M class-equal NLL gain", "C_flex to M AUC gain", "S to M class-equal NLL gain", "S to M AUC gain"],
+    "confidence_intervals": "95% paired cluster bootstrap intervals with 10000 resamples",
+    "bootstrap_seed": 20261010,
+    "concept_quality": ["concept macro-OVR AUC range", "class-equal concept NLL range"]
+  },
+  "excluded": [
+    "Analysis 2",
+    "Analysis 3",
+    "direct-feature baselines",
+    "PH2 transfer",
+    "coefficient-stability analysis",
+    "fine-tuning",
+    "end-to-end image classification"
+  ],
+  "interpretation_rule": "Differences between BiomedCLIP and CLIP will be reported as encoder-dependent findings. They will not be attributed solely to the pretraining domain because the encoders differ in learned parameters and training data despite sharing the ViT-B/16 architecture.",
+  "status": "locked before outcome computation"
+}

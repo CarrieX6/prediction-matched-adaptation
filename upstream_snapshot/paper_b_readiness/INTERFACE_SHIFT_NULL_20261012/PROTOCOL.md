@@ -1,0 +1,3 @@
+# Predicted-interface shift with a permutation null
+
+This post-result descriptive analysis reuses archived predictions and fits no model. Derm7pt uses the mean of five out-of-fold predictions per case. PH2 uses five source models per case, one from each repetition. Within repetition, the outer-fold model is assigned by a fixed SHA-256 hash of case ID plus repetition; five cyclic offsets provide a sensitivity analysis. Outcomes are not used for model assignment. The analysis drops one reference state per concept block, leaving 12 free coordinates and 66 correlation pairs. Cohort labels are permuted 10,000 times within each diagnostic stratum. The negative-class analysis is repeated with Derm7pt restricted to nevus diagnoses.

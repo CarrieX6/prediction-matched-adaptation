@@ -1,0 +1,478 @@
+{
+  "protocol_id": "paper-b-p1-simple-explanations-20260915-v2",
+  "status": "FROZEN_PRE_OUTCOME",
+  "frozen_date": "2026-09-15",
+  "timezone": "Asia/Shanghai",
+  "frozen_before_new_p1_outcome_computation": true,
+  "authority": {
+    "instruction_file": "/home/xzf/.codex/attachments/35d8ae37-71c3-4e32-a3a2-755d9638f255/Paper_B_Neurocomputing_Agent_Instructions_20260915.md",
+    "instruction_sha256": "90c49c65d60934c96c9f709efb4169b04465de958c77b64feee25e114158c1c1",
+    "experiment_contract": "paper_b_readiness/EXPERIMENT_CONTRACT.yaml",
+    "experiment_contract_sha256": "2433f1855d13000279f3dcfc7fee620059f63c9ef952243e38ecfb2befea3481",
+    "precedence": "This file freezes P1 operational choices without changing the attached instructions or experiment contract."
+  },
+  "scope": {
+    "phase": "P1_simple_explanation_controls",
+    "representation": "soft_scores_only_U0",
+    "upstream": "frozen_existing_concept_predictions_and_compliant_cached_features",
+    "development_domains": [
+      "cbis",
+      "derm"
+    ],
+    "planned_complete_units": {
+      "cbis": {
+        "repetitions": 1,
+        "outer_folds": 5,
+        "grouping": "patient"
+      },
+      "derm": {
+        "repetitions": 5,
+        "outer_folds": 5,
+        "grouping": "case"
+      }
+    },
+    "pilot_unit": {
+      "domain": "cbis",
+      "repetition": 0,
+      "outer_fold": 0,
+      "reason_selected_before_p1_outcomes": "one legal development unit with an existing strict-nested panel and patient-grouped lineage"
+    },
+    "pilot_stop": "Run exactly the frozen pilot unit, write and audit its artifacts, then stop. Do not launch any other unit until an independent audit and explicit root instruction.",
+    "prohibited": [
+      "official_test_access",
+      "official_test_file_discovery_or_listing",
+      "new_dataset",
+      "new_upstream_encoder",
+      "representation_other_than_soft_scores",
+      "outcome_driven_seed_or_model_switching",
+      "full_factorial_expansion",
+      "manuscript_modification"
+    ]
+  },
+  "fixed_inputs": {
+    "p0_hash_manifest": {
+      "path": "paper_b_readiness/P0_HASH_MANIFEST.json",
+      "sha256": "d00b9d304fd87d98319a1b85315c38accbb83f758abe97b62c02a2fdb91cfdcd",
+      "frozen_result_aggregate_sha256": "50bdf69fca67c8dcc79a2a773d50a82f3d84158cf36317a4596340c7d88acab6",
+      "rule": "Every complete-run source panel, generation record, archived prediction, selection record, and head record must match its file-level SHA-256 in this P0 manifest before use."
+    },
+    "strict_nested_protocol": {
+      "path": "results/deadline_nested_20260912/protocol.json",
+      "sha256": "9b1092b78840b31da47cc1a85a67ae413b0e64d237a848ace7fe94add0f51d09"
+    },
+    "strict_nested_runner": {
+      "path": "scripts/run_deadline_nested_20260912.py",
+      "sha256": "604e0a75d86d8a42dd5704cc3737fe7753b4813eb4f36236f87c5473542a7f65"
+    },
+    "cbis_source": {
+      "path": "src/paper_b_cbis_p3.py",
+      "sha256": "e73ab8d090dbc6b98357e9fa31e1430a66c3b35edc5382fc35f28868595bf851"
+    },
+    "derm_source": {
+      "path": "src/paper2_mpjc/pilot.py",
+      "sha256": "20796d10f1f2615d495240406b677791e74d0dfe0dfb4ea7c1bcf19ef37511ab"
+    },
+    "cbis_config": {
+      "path": "configs/paper_b_cbis_p3_minimal_protocol_final_v1_20260910.json",
+      "sha256": "a2e0b1d18009c9aa683b9069f50bbb5b8184b153ba01fe9a099750f9a42f7ba7"
+    },
+    "derm_config": {
+      "path": "configs/cf_mpjc_d1_derm7pt.json",
+      "sha256": "206b5f828cf479f2e388d1a56fc90ba5d742321f5102de6605784dfb7fb37815"
+    },
+    "cbis_development_cohort": {
+      "path": "data/CBIS_DDSM/paper_b_cbis_mass_train_breast_cohort_v1_20260910.npz",
+      "sha256": "4d868f37a5daf2fa33f4b833d01da4c1476403b5d6fb157478451b9ce80f7725",
+      "role": "development-only complete-case concept labels, validity masks, case identifiers, patient groups, and original patient folds used to reconstruct probe-fit priors"
+    },
+    "cbis_development_manifest": {
+      "path": "data_manifests/paper_b_cbis_mass_train_breast_cohort_v1_20260910.csv",
+      "sha256": "70ef2b8603c9d7823c787a4d7ea7187b59edc235eae0a41ae5c0cac807a4f2cf",
+      "role": "development-only cohort provenance cross-check"
+    },
+    "derm_development_features": {
+      "path": "data/Derm7pt/derm7pt_biomedclip_dev609_only_v1_20260908.npz",
+      "sha256": "c3a5f9534c01a70113e0d96f3b0f9fef5aff9e3a20c0737f5200d2078b000866",
+      "role": "development-only cached features and labels"
+    },
+    "derm_development_metadata": {
+      "path": "data/Derm7pt/derm7pt_dev609_only_v1_20260908.csv",
+      "sha256": "c7c079e6bbed3cfbe64139c30fe742195f0f469602512ed56a8f046f864fca08",
+      "role": "development-only case metadata"
+    },
+    "pilot_archive": {
+      "panel": {
+        "path": "results/deadline_nested_20260912/cbis_r0_f0/panel.npz",
+        "sha256": "e584414bf559d99a5f3ba47d8a9e322a86d070d46d6eb223f6870e1b6b4914cb"
+      },
+      "generation": {
+        "path": "results/deadline_nested_20260912/cbis_r0_f0/generation.json",
+        "sha256": "ae9be949926d386950de5c473b56cd1f2d774f4aff252dc323c7f397b671463d"
+      },
+      "predictions": {
+        "path": "results/deadline_nested_20260912/cbis_r0_f0/predictions.csv",
+        "sha256": "f7a7a864b29d9a919ca5d50e770fdce1bbaaac462ae22d27a0c0545ffa4e82f3"
+      },
+      "selection": {
+        "path": "results/deadline_nested_20260912/cbis_r0_f0/selection.json",
+        "sha256": "f4e21161e0e82cb082ba973c5778f767461b542012285fb39f9b799710d1642e"
+      },
+      "heads": {
+        "path": "results/deadline_nested_20260912/cbis_r0_f0/heads.json",
+        "sha256": "4736ce59eecbb9f2d75ee87b485599e20e8c3c568f5d998cb6c08f922121e2e6"
+      }
+    }
+  },
+  "data_roles": {
+    "T": "outer-development training rows",
+    "E": "outer-development evaluation rows, never used for fitting or selecting any component",
+    "H": "one diagnosis-inner validation block inside T",
+    "D": "T minus H",
+    "G": "one deeper probe-validation block inside D",
+    "probe_fit_for_H": "D",
+    "probe_fit_for_G": "D minus G"
+  },
+  "arms": {
+    "R": "reference diagnostic head fit on annotated concept inputs in T and evaluated on annotated concept inputs in E",
+    "S": "the same final reference head evaluated by direct substitution of raw predicted soft scores in E",
+    "C": "positive-slope affine calibration of the final reference-head logits produced from raw predicted soft scores",
+    "M": "diagnostic head selected and fit on full-chain out-of-fold raw predicted soft scores in T, then evaluated on raw predicted soft scores in E",
+    "SP": "the same final reference head evaluated by direct substitution of fit-local-prior-restored predicted soft scores in E",
+    "CP": "positive-slope affine calibration of the final reference-head logits produced from fit-local-prior-restored predicted soft scores",
+    "MP": "diagnostic head selected and fit on full-chain out-of-fold fit-local-prior-restored predicted soft scores in T, then evaluated on fit-local-prior-restored predicted soft scores in E"
+  },
+  "arm_separation": "R, S, C, M, SP, CP, and MP are separate evaluation arms. No predictions or parameters are fused across arms.",
+  "concept_score_rules": {
+    "raw_symbol": "q",
+    "prior_restored_symbol": "q_prior",
+    "probability_clip": {
+      "cbis": 0.000001,
+      "derm": 1e-12
+    },
+    "numerical_rule": "Within each concept block, form an unnormalised state vector r_k=max(q_k,eps)*pi_k and normalise r/sum(r). For a CBIS binary concept, the source state vector is [1-q,q] before max(.,eps), so q_prior is the normalised positive-state component. Do not clip pi, and do not first clip a scalar q to [eps,1-eps]. A zero empirical-prior state therefore remains exactly zero. Fail closed if sum(r) is non-finite or non-positive.",
+    "binary_formula": "q_prior = pi1*max(q,eps) / (pi0*max(1-q,eps) + pi1*max(q,eps)), where pi0 and pi1 are separately normalised empirical state frequencies on concept-valid probe-fit rows",
+    "multiclass_formula": "q_prior[k] = pi[k]*max(q[k],eps) / sum_j(pi[j]*max(q[j],eps)) within each concept block",
+    "prior_source": "For every predicted row and concept block, pi is the empirical concept-state prior from the exact rows used to fit the concept predictor that generated that row's q.",
+    "forbidden_prior_sources": [
+      "outer evaluation E",
+      "diagnosis-inner validation H for a predictor fit on D",
+      "deeper probe-validation G for a predictor fit on D minus G",
+      "whole development cohort",
+      "outcome labels"
+    ],
+    "cbis_reconstruction": "For each concept separately, use only concept_valid rows among the exact original patient-fold probe-fit rows; compute pi0=n0/(n0+n1) and pi1=n1/(n0+n1). Verify n0, n1, fit-row count, patient count, and SHA-256 of the ordered valid-fit unit identifiers against the corresponding frozen generation-manifest concept_fits record. The complete-case archive is expected to be all-valid, but this must be checked rather than assumed.",
+    "derm_reconstruction": "For each categorical concept block, compute the empirical frequency of every state on the exact seeded strict_meta or strict_meta_inner probe-fit rows, preserving the frozen block cardinality. States absent from the fit rows have prior zero and remain exactly zero after restoration.",
+    "score_role_prior_provenance": {
+      "z_H_and_raw_T_block_H": "pi(D), because the concept predictor generating z_H was fit on D=T\\H; raw_T is the row-wise stitch of these z_H blocks",
+      "x_G_inside_D": "pi(D\\G), because the deeper concept predictor generating x_G was fit on D\\G",
+      "val_E": "pi(T), because the final concept predictor generating the outer-evaluation score was fit on T"
+    }
+  },
+  "diagnostic_head": {
+    "family": "binary_logistic_regression",
+    "solver": "lbfgs",
+    "penalty": "L2",
+    "class_weight": "balanced",
+    "random_state": 20260912,
+    "max_iter": {
+      "cbis": 10000,
+      "derm": 2000
+    },
+    "C_grid": [
+      0.001,
+      0.01,
+      0.1,
+      1.0,
+      10.0,
+      100.0
+    ],
+    "selection_target": "unweighted mean of diagnosis-inner-fold class-equal NLL",
+    "tie_break": "first minimum in ascending C grid",
+    "reference_head_selection": "For each H-specific calibration reference head, select C wholly inside D=T\\H: for every G in the frozen partition of D, fit on annotated concepts in D\\G, validate on annotated concepts in G, average class-equal NLL across G, choose the first minimum in the ascending grid, then fit on annotated concepts in D. For the outer-final reference head, for every H fit on annotated concepts in D and validate on annotated concepts in H, average across H, choose C, then fit on annotated concepts in T.",
+    "matching_head_selection": "M follows the frozen original protocol. For every candidate C and H, fit on x_D, whose rows are deeper G-out-of-fold raw predicted scores over D, validate on raw z_H, and average class-equal NLL across H; fit the selected head on raw_T and evaluate on val_E. MP is isomorphic, replacing x_D, z_H, raw_T, and val_E row by row with their fit-local-prior-restored versions."
+  },
+  "full_chain_oof": {
+    "calibration_base_scores": [
+      "For each H inside T, define D=T\\H.",
+      "Use the frozen z_H=q_H generated by a concept predictor fit on D; E and H were absent from that predictor fit.",
+      "Select an H-specific reference diagnostic-head C wholly inside D using annotated concepts: for each G, fit on D\\G and validate on G; then average across G and choose the first minimum.",
+      "Fit that H-specific selected reference head on annotated concepts in D and call decision_function on q_H to obtain an out-of-fold reference logit. For CP, call the same head on the pi(D)-restored q_H. The C and CP calibration vectors are distinct and are fitted separately.",
+      "Stitch the H-specific logits for all H to form exactly one full-chain out-of-fold calibration row per T case. The outer-final reference head is forbidden for generating these calibration-training logits."
+    ],
+    "matching_training_scores": [
+      "For each H, predicted z_H comes from a concept predictor fit on D=T\\H.",
+      "For every matching-head candidate C within each H, fit on x_D, in which every row in deeper block G was scored by a concept predictor fit on D\\G, and validate on z_H; average validation class-equal NLL across H.",
+      "Raw matching uses q; prior-restored matching uses q_prior computed from the exact corresponding concept-predictor fit rows.",
+      "After C selection, M fits on raw_T and MP fits on the identically ordered restored raw_T; both evaluate the identically ordered val_E representation assigned to their arm.",
+      "No E row or outcome enters concept prediction, head selection, calibration, or final head fitting."
+    ],
+    "cbis_partition": "The four original patient folds remaining after the outer fold define H; the other three original patient folds inside D define G.",
+    "derm_partition": "The seeded four-way strict_meta split defines H. Within each D, reconstruct exactly four G folds with case_kfold_splits(len(D),4,_seed(cfg.seed,'strict_meta_inner',rep,outer_fold,h,'split')) and map local indices back to global development rows without reordering.",
+    "outer_final_reference_head": "Select C by the four H gold-input fits D->H, fit on annotated concepts in T, and use this one fitted head for R, S, SP and for the outer-E base logits transformed by C and CP.",
+    "required_case_level_lineage": "Record fit and validation row counts, case/group hashes, and disjointness assertions for every H and G relation."
+  },
+  "affine_calibration": {
+    "model": "sigmoid(a*z_ref+b)",
+    "z_ref": "reference diagnostic-head logit evaluated on predicted concept inputs",
+    "fit_target": "class-equal binary NLL on stitched full-chain OOF rows in T",
+    "optimizer": "scipy.optimize.minimize L-BFGS-B",
+    "objective": "eta_i=a*z_i+b; w_i=1/(2*n_{y_i}); J(a,b)=sum_i w_i*(logaddexp(0,eta_i)-y_i*eta_i). The analytic gradient is [sum_i w_i*(sigmoid(eta_i)-y_i)*z_i, sum_i w_i*(sigmoid(eta_i)-y_i)].",
+    "initial_parameters": {
+      "a": 1.0,
+      "b": 0.0
+    },
+    "bounds": {
+      "a_lower": 0.000001,
+      "a_upper": null,
+      "b_lower": null,
+      "b_upper": null
+    },
+    "optimizer_options": {
+      "maxiter": 10000,
+      "ftol": 1e-12,
+      "gtol": 1e-10,
+      "maxls": 50
+    },
+    "fallback": "none; any optimizer failure, non-finite value, bound violation, identity-objective increase beyond tolerance, or KKT failure aborts the unit without publishing COMPLETE",
+    "identity_map": {
+      "a": 1.0,
+      "b": 0.0
+    },
+    "kkt_rule": "At the solution, abs(gradient_b)<=1e-5. If a>1e-6+1e-10, abs(gradient_a)<=1e-5; at the lower bound, gradient_a>=-1e-5.",
+    "separate_fits": "C and CP use separately fitted affine calibrators.",
+    "audits": [
+      "optimizer reports success",
+      "a and b are finite",
+      "a is at least 1e-6",
+      "fitted objective is no greater than the identity-map objective within numerical tolerance",
+      "first-order or active-bound condition is satisfied within declared tolerance",
+      "within each outer unit separately, C and S have identical rank order and AUC within 1e-12, and CP and SP have identical rank order and AUC within 1e-12; no globally stitched invariance claim is used"
+    ]
+  },
+  "metrics": {
+    "primary": "class_equal_NLL",
+    "secondary": [
+      "AUC",
+      "natural_frequency_NLL",
+      "Brier"
+    ],
+    "per_case_losses": [
+      "negative_log_likelihood",
+      "squared_probability_error"
+    ]
+  },
+  "contrasts": {
+    "primary": {
+      "name": "C_minus_M",
+      "nll_formula": "class_equal_NLL(C)-class_equal_NLL(M)",
+      "favourable_sign": "negative_favours_C"
+    },
+    "secondary": [
+      {
+        "name": "S_minus_SP",
+        "nll_formula": "class_equal_NLL(S)-class_equal_NLL(SP)",
+        "favourable_sign": "positive_favours_SP"
+      },
+      {
+        "name": "S_minus_C",
+        "nll_formula": "class_equal_NLL(S)-class_equal_NLL(C)",
+        "favourable_sign": "positive_favours_C"
+      },
+      {
+        "name": "CP_minus_MP",
+        "nll_formula": "class_equal_NLL(CP)-class_equal_NLL(MP)",
+        "favourable_sign": "negative_favours_CP"
+      },
+      {
+        "name": "M_minus_MP",
+        "nll_formula": "class_equal_NLL(M)-class_equal_NLL(MP)",
+        "favourable_sign": "positive_favours_MP"
+      }
+    ],
+    "auc_reporting": "For every named X_minus_Y contrast, additionally report AUC(X)-AUC(Y); positive favours X and negative favours Y. Never label C_minus_M NLL as a gain without this direction."
+  },
+  "uncertainty": {
+    "complete_run_draws": 10000,
+    "method": "paired whole-cluster bootstrap",
+    "cbis_cluster": "patient with all associated rows retained",
+    "derm_cluster": "case with all repetitions retained together",
+    "bootstrap_seed": 2026091517,
+    "paired_draws": "Use the identical sampled cluster multiset for every arm and every contrast within a domain and draw.",
+    "nll_complete_run_estimator": "Compute each case-arm negative-log-likelihood contribution within repetition, average repeated contributions for the same case across repetitions first, then resample whole patient clusters for CBIS or whole cases for Derm. Recompute class-equal NLL from the resampled case-first table.",
+    "auc_complete_run_estimator": "Within every bootstrap draw, compute AUC separately in every repetition from the sampled clusters/cases, then take the unweighted mean across repetitions.",
+    "interval": "two-sided percentile 95% interval using empirical 0.025 and 0.975 quantiles of all 10000 paired draws",
+    "missing_class_draw_rule": "A draw missing either outcome class in any required repetition is rejected and redrawn from the same seeded RNG until 10000 valid paired draws are obtained; abort if 100000 total proposals do not yield 10000 valid draws.",
+    "pilot": "descriptive point estimates and per-case paired contributions only; no inferential interval is claimed from one outer unit"
+  },
+  "resource_thresholds": {
+    "class_equal_NLL_absolute_delta": 0.005,
+    "AUC_absolute_delta": 0.01,
+    "interpretation": "descriptive resource-relevance thresholds, not significance thresholds and not decision rules for expanding the search"
+  },
+  "output_contract": {
+    "pilot": {
+    "directory": "paper_b_readiness/p1_pilot/cbis_r0_f0",
+    "required": [
+      "predictions.csv",
+      "calibration_oof.csv",
+      "per_case_effects.csv",
+      "metrics.csv",
+      "paired_effects.csv",
+      "selections.json",
+      "calibrators.json",
+      "prior_lineage.json",
+      "lineage.json",
+      "audit.json",
+      "fit_cost.json",
+      "execution_manifest.json",
+      "run.log",
+      "COMPLETE.json"
+      ],
+      "interpretation": "Engineering and audit pilot only. These artifacts are not a P1 scientific conclusion, do not trigger hypothesis acceptance or rejection, and cannot be used to alter this frozen contract."
+    },
+    "complete_run": {
+      "unit_directory_pattern": "paper_b_readiness/p1_complete/units/{domain}_r{repetition}_f{outer_fold}",
+      "unit_required": [
+        "predictions.csv",
+        "calibration_oof.csv",
+        "per_case_effects.csv",
+        "metrics.csv",
+        "paired_effects.csv",
+        "selections.json",
+        "calibrators.json",
+        "prior_lineage.json",
+        "lineage.json",
+        "audit.json",
+        "fit_cost.json",
+        "execution_manifest.json",
+        "run.log",
+        "COMPLETE.json"
+      ],
+      "aggregate_directory": "paper_b_readiness/p1_complete/aggregate",
+      "aggregate_required": [
+        "all_predictions.csv",
+        "all_calibration_oof.csv",
+        "all_per_case_effects.csv",
+        "all_metrics.csv",
+        "all_paired_effects.csv",
+        "aggregate_effects.csv",
+        "bootstrap_effects.csv",
+        "aggregate_audit.json",
+        "execution_manifest.json",
+        "COMPLETE.json"
+      ]
+    },
+    "schemas": {
+      "predictions.csv": [
+        "domain",
+        "repetition",
+        "outer_fold",
+        "row_index",
+        "case_id",
+        "group_id",
+        "y",
+        "p_R",
+        "p_S",
+        "p_C",
+        "p_M",
+        "p_SP",
+        "p_CP",
+        "p_MP",
+        "logit_S",
+        "logit_C",
+        "logit_SP",
+        "logit_CP"
+      ],
+      "calibration_oof.csv": [
+        "domain",
+        "repetition",
+        "outer_fold",
+        "row_index",
+        "case_id",
+        "group_id",
+        "y",
+        "H",
+        "reference_C_H",
+        "raw_base_logit",
+        "prior_restored_base_logit",
+        "probe_fit_scope_sha256",
+        "reference_fit_scope_sha256"
+      ],
+      "per_case_effects.csv": [
+        "domain",
+        "repetition",
+        "outer_fold",
+        "row_index",
+        "case_id",
+        "group_id",
+        "y",
+        "arm",
+        "negative_log_likelihood",
+        "squared_probability_error",
+        "class_equal_nll_contribution"
+      ],
+      "metrics.csv": [
+        "domain",
+        "repetition",
+        "outer_fold",
+        "arm",
+        "class_equal_NLL",
+        "AUC",
+        "natural_frequency_NLL",
+        "Brier",
+        "n_cases",
+        "n_groups"
+      ],
+      "paired_effects.csv": [
+        "domain",
+        "repetition",
+        "outer_fold",
+        "contrast",
+        "class_equal_NLL_X_minus_Y",
+        "AUC_X_minus_Y",
+        "favourable_sign_NLL",
+        "pilot_descriptive_only"
+      ],
+      "selections.json": "Per-fold loss curves in ascending C-grid order, selected indices/C values, fit/validation scope hashes, and tie-break audit for outer reference, every H-specific reference, M, and MP.",
+      "calibrators.json": "Separate C and CP optimizer inputs, selected parameters, objective/gradient/KKT diagnostics, iteration/status fields, and identity comparison.",
+      "prior_lineage.json": "One record per domain/unit/score-role/H/G/concept-block with source fit indices and ordered case/group scope hashes, empirical counts/prior, matching frozen generating-probe manifest record, and exact-match assertions.",
+      "lineage.json": "T/E/H/D/G membership hashes, partitions, disjointness, source paths/hashes, software versions, and arm row-alignment assertions.",
+      "audit.json": "Every mandatory audit as a named boolean with observed values/tolerances; publishing requires all true.",
+      "fit_cost.json": "Wall time and per-component counts/times for probe reuse, head fits, selections, prior restoration, affine fits, metrics, audits, and output writing.",
+      "execution_manifest.json": "Protocol/runner/source hashes plus byte size and SHA-256 for every published artifact except COMPLETE.json.",
+      "COMPLETE.json": "Written last in staging; records unit identity, status COMPLETE, protocol SHA-256, execution-manifest SHA-256, and completion timestamp."
+    },
+    "implementation_path": "scripts/run_p1_calibration_prior_20260915.py",
+    "atomic_publication": "Write to a new unit-local staging directory; fail if final target exists; write COMPLETE.json last only after every audit passes; atomically rename the whole staging directory to the final unit path. A directory lacking a valid COMPLETE.json is incomplete and must never enter aggregation."
+  },
+  "mandatory_audits": [
+    "input hashes equal this protocol",
+    "every used complete-run source file equals its file-level hash in P0_HASH_MANIFEST.json",
+    "pilot invocation exactly equals cbis repetition 0 outer fold 0",
+    "the H blocks partition T exactly once with no missing or duplicate row or group leakage",
+    "within every H, the G blocks partition D exactly once with no missing or duplicate row or group leakage",
+    "all E rows are excluded from every fit and selection relation",
+    "all H rows are excluded from the concept predictor and reference head that generate their calibration base logits",
+    "all G rows are excluded from their generating concept predictor fit",
+    "patient groups are disjoint wherever CBIS rows are held out",
+    "for every q role and concept block, the prior fit-scope hash exactly equals the fit-scope hash of the frozen probe that generated q",
+    "every fit-local prior equals an independently recomputed empirical prior from the recorded probe-fit rows",
+    "the C calibration OOF vector and the CP calibration OOF vector each contain every T row exactly once in the original T order",
+    "the final C outer-evaluation base logits exactly equal the S reference-head logits before affine transformation, and the final CP outer-evaluation base logits exactly equal the SP reference-head logits before affine transformation",
+    "all seven arms have identical case_id, group_id, y, and row order",
+    "all seven arms contain exactly one finite probability per outer evaluation row",
+    "R, S, and M reproduce their archived strict-nested pilot predictions within declared numerical tolerance",
+    "M selected C reproduces the archived strict-nested pilot choice",
+    "C and CP satisfy the positive-slope calibration audits",
+    "no bootstrap or non-pilot unit is run in pilot mode",
+    "execution_manifest covers every artifact and COMPLETE.json is created last before one atomic directory publication"
+  ],
+  "numerical_tolerances": {
+    "probability_reproduction_absolute": 1e-10,
+    "prior_reconstruction_absolute": 1e-12,
+    "objective_nonincrease_absolute": 1e-10,
+    "optimizer_gradient_or_kkt_absolute": 0.00001,
+    "rank_and_auc_absolute": 1e-12
+  },
+  "post_pilot_gate": "STOP_FOR_INDEPENDENT_AUDIT"
+}

@@ -1,0 +1,33 @@
+{
+  "version": "deadline-strict-nested-v1",
+  "date": "2026-09-12",
+  "domains": {
+    "cbis": {
+      "repetitions": 1,
+      "outer": 5,
+      "inner": "remaining four original patient folds",
+      "clip": 1e-06
+    },
+    "derm": {
+      "repetitions": 5,
+      "outer": 5,
+      "inner": "original strict_meta four case folds; four probe folds inside each T\\H",
+      "clip": 1e-12
+    }
+  },
+  "c_grid": [
+    0.001,
+    0.01,
+    0.1,
+    1.0,
+    10.0,
+    100.0
+  ],
+  "head": "balanced L2 lbfgs logistic, independent C per representation",
+  "selection": "mean inner class-equal NLL; ties smallest C",
+  "standardization": "coordinate mean/std ddof0 fitted on inner-training panel; std<=1e-12 replaced by 1",
+  "conditions": "raw hard/soft/reference-logodds x fixed1/nested; standardized hard/soft/reference-logodds nested; gold nested and same-head substitution",
+  "exclusion": "inner training G probes exclude E,H,G; inner H probe excludes E,H; final T OOF and T-fit predicts E",
+  "inference": "10000 paired cluster bootstrap draws; repetitions stay together; conditional on fitted panels",
+  "protected": "No reserved test access, no new cohorts, no outcome-dependent search"
+}

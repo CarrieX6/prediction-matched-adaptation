@@ -1,0 +1,531 @@
+{
+  "schema_version": "1.0.0",
+  "protocol_id": "DERM7PT_CF_MPJC_D1_V1_20260908",
+  "status": "READY_FOR_RESULT_BLIND_FREEZE_NOT_YET_FROZEN",
+  "protocol_document": "docs/cf_mpjc_d1_preregistered_protocol_20260908.md",
+  "formal_freeze_manifest": "configs/cf_mpjc_d1_freeze_manifest_v1_20260908.json",
+  "evidence_status": "CONTAMINATED_CASE_LEVEL_DEVELOPMENT_METHOD_SCREEN",
+  "outcome_exposure_boundary": {
+    "already_known_before_this_protocol": [
+      "Derm7pt E0 evidence-handoff outcomes",
+      "Derm7pt J0 pair-channel outcomes",
+      "Derm7pt J0 prior-corrected construct sensitivity outcomes"
+    ],
+    "not_permitted_before_formal_freeze": [
+      "any D1 diagnosis prediction or aggregate",
+      "any D1 full-joint held-out concept likelihood",
+      "any D1 success-gate value"
+    ],
+    "manifest_limitation": "The freeze script proves named-file hashes and absence of named result paths; it cannot prove a person's outcome exposure."
+  },
+  "dataset": {
+    "dataset_id": "DERM7PT-TRAIN-VALID-MEL-EVIDENCE-HANDOFF-DEV609",
+    "role": "contaminated development-only method screen",
+    "feature_archive": "data/Derm7pt/derm7pt_biomedclip_dev609_only_v1_20260908.npz",
+    "metadata": "data/Derm7pt/derm7pt_dev609_only_v1_20260908.csv",
+    "official_meta_directory": "data/Derm7pt/release_v0/meta",
+    "formal_runner_loads_only_materialized_development_rows": true,
+    "formal_loader_require_development_only_archive": true,
+    "formal_runner_loaded_artifacts": [
+      "data/Derm7pt/derm7pt_biomedclip_dev609_only_v1_20260908.npz",
+      "data/Derm7pt/derm7pt_dev609_only_v1_20260908.csv"
+    ],
+    "materialization_derivation_receipt": "data/Derm7pt/derm7pt_dev609_only_derivation_receipt_v1_20260908.json",
+    "provenance_only_not_loaded_by_formal_runner": [
+      "data/Derm7pt/derm7pt_biomedclip_pair1002_v1_20260904.npz",
+      "data/Derm7pt/release_v0/meta/meta.csv"
+    ],
+    "provenance_hashing_does_not_authorize_model_loading": true,
+    "included_partitions": [
+      "train",
+      "valid"
+    ],
+    "expected_case_count": 609,
+    "expected_diagnosis_class_counts": {
+      "NON_MEL": 460,
+      "MEL": 149
+    },
+    "independent_unit": "case",
+    "patient_independence_claim": false,
+    "official_test_policy": "QUARANTINED; its index file may be read only to assert exclusion, but no test feature, concept, diagnosis, prediction, score, or aggregate may be returned or used",
+    "official_test_outcomes_loaded_by_formal_runner": false,
+    "official_test_index_used_only_for_exclusion_audit": true,
+    "deployment_x": "frozen L2-normalized BiomedCLIP dermoscopic-image embedding",
+    "diagnosis_endpoint": "MEL versus NON_MEL",
+    "concept_order": [
+      "pigment_network",
+      "blue_whitish_veil",
+      "vascular_structures",
+      "pigmentation",
+      "streaks",
+      "dots_and_globules",
+      "regression_structures"
+    ],
+    "concept_cardinalities": [
+      3,
+      2,
+      3,
+      3,
+      3,
+      3,
+      2
+    ],
+    "concept_one_hot_dimension": 19,
+    "cartesian_state_count": 972,
+    "private_spine": "NOT_USED_IN_D1",
+    "external_or_fresh_data": "NOT_OPENED_BY_D1"
+  },
+  "splitting": {
+    "base_seed": 2026090829,
+    "seed_derivation": "int.from_bytes(sha256('|'.join([base_seed,*parts])).digest()[:4], 'little') & 0x7fffffff",
+    "repetitions": 5,
+    "outer": {
+      "splitter": "sklearn.model_selection.KFold",
+      "folds": 5,
+      "shuffle": true,
+      "unit": "case",
+      "stratification": "NONE",
+      "diagnosis_y_used": false,
+      "concept_c_used": false
+    },
+    "inner_probe": {
+      "splitter": "sklearn.model_selection.KFold",
+      "folds": 4,
+      "shuffle": true,
+      "unit": "case within each meta-fit set A=outer_train\\H",
+      "stratification": "NONE",
+      "purpose": "inside each meta-fit A=outer_train\\H, produce probe OOF scores using probes trained wholly inside A so T_A can be fitted without any path from H",
+      "heldout_meta_block_used_by_any_generating_probe": false
+    },
+    "calibration": {
+      "splitter": "sklearn.model_selection.KFold",
+      "folds": 4,
+      "shuffle": true,
+      "unit": "outer-train case",
+      "stratification": "NONE",
+      "semantic_role": "held-out meta folds, not a second independent rowwise calibration split",
+      "purpose": "for each held-out meta fold H, set A=outer_train\\H; create inner probe OOF scores only inside A, fit T_A only on those prior-corrected A scores and C_A, then use a full-A probe, the full-A empirical prior, and T_A to predict H",
+      "strict_upstream_exclusion": {
+        "probe_fit_for_H_excludes_H": true,
+        "probe_fit_prior_for_H_excludes_H": true,
+        "temperature_training_scores_for_H_exclude_H_from_their_generating_probes": true,
+        "temperature_concept_labels_for_H_exclude_H": true,
+        "diagnosis_y_accepted_by_concept_stack": false
+      },
+      "outer_validation_calibrator": "concatenate the raw H predictions made by each full-A probe and their rowwise full-A generating priors, recompute the corrected top-level strict meta-OOF table, and fit one T_full per concept on that table plus outer-train C; a full-outer-train probe is used only to predict outer validation, where its scores are corrected by the full-outer-train prior before applying T_full",
+      "outer_validation_temperature_fit_score_source": "top_level_strict_metaheldout_prior_corrected_probe_scores",
+      "single_case_perturbation_invariance": {
+        "condition": "for any h in held-out meta fold H, keep X and all split assignments fixed and perturb C_h and/or Y_h",
+        "raw_probe_probability_for_h_bitwise_unchanged": true,
+        "probe_fit_prior_for_h_bitwise_unchanged": true,
+        "prior_corrected_probability_for_h_bitwise_unchanged": true,
+        "calibrated_probability_for_h_bitwise_unchanged": true
+      }
+    },
+    "overlap_policy": "every case must occur in exactly one outer-validation fold per repetition and, when in outer train, exactly one held-out meta fold; any upstream fit that generates a held-out H marginal must exclude all of H"
+  },
+  "concept_probe": {
+    "model": "L2 multinomial logistic regression",
+    "solver": "lbfgs",
+    "C": 1.0,
+    "max_iter": 2000,
+    "sample_weight": "inverse-frequency within exactly the probe fit rows",
+    "diagnosis_y_used": false,
+    "prior_correction": {
+      "formula": "normalize(weighted_probe_score * empirical_unweighted_concept_prior_of_that_probe_fit)",
+      "strict_meta_oof": "a row in H uses the prior of the full-A probe that predicts H, where A=outer_train\\H; the inner OOF rows used to fit T_A each use their own generating probe-fit prior inside A",
+      "outer_validation": "uses the empirical concept prior of the full outer-train probe fit",
+      "epsilon": 1e-12,
+      "double_correction_prohibited": true
+    }
+  },
+  "concept_calibration": {
+    "model": "one scalar temperature per concept",
+    "input": "already probe-fit-prior-corrected probability scores generated under held-out meta-fold isolation",
+    "objective": "unweighted multiclass concept NLL",
+    "temperature_bounds": [
+      0.05,
+      20.0
+    ],
+    "optimization_tolerance": 1e-8,
+    "epsilon_for_log_scoring": 1e-12,
+    "diagnosis_y_used": false,
+    "rank_or_hyperparameter_selection_by_y": false
+  },
+  "joint_model": {
+    "name": "CF_MPJC",
+    "family": "rank-one centered full-joint interaction followed by one-way-marginal I-projection",
+    "free_interaction_parameters": 12,
+    "rank": 1,
+    "l2": 0.01,
+    "optimizer": "L-BFGS-B with analytic implicit I-projection gradient",
+    "optimizer_max_iterations": 150,
+    "optimizer_ftol": 1e-11,
+    "optimizer_gtol": 1e-7,
+    "optimizer_max_line_search_steps": 30,
+    "parameter_bound": 4.0,
+    "starts": 4,
+    "start_scale": 0.15,
+    "start_construction": "zero, constant +0.15, alternating +/-0.15, then deterministic Normal(0,0.15) with RNG seed 7319",
+    "selection_across_starts": "lowest outer-train penalized concept joint NLL only",
+    "ipf_tolerance_fit": 1e-11,
+    "ipf_tolerance_evaluation": 1e-11,
+    "ipf_max_iterations": 3000,
+    "require_ipf_convergence": true,
+    "ipf_failure_policy": "raise if the final target-energy projection does not reach 1e-11 within 3000 total dual updates accumulated across all continuation stages; no per-stage cap reset, silent retry, solver switch, or tolerance relaxation",
+    "ipf_solver_contract": {
+      "solver": "deterministic energy-continuation dual I-projection solver",
+      "statistical_target": "the unchanged one-way-marginal I-projection defining CF-MPJC",
+      "all_nonzero_phi_use_this_solver": true,
+      "nonzero_phi_diagnostic_solver": "energy_continuation_dual_ipf",
+      "zero_phi_solver": "independent_exact",
+      "stages": "max(1, ceil(energy_span / 32))",
+      "energy_span_per_stage": 32.0,
+      "intermediate_tolerance": 1e-8,
+      "final_tolerance": 1e-11,
+      "maximum_state_log_update": 2.0,
+      "covariance_eigenvalue_floor": 1e-14,
+      "global_update_cap": 3000,
+      "update_cap_resets_between_stages": false
+    },
+    "result_blind_numerical_verification": {
+      "role": "implementation-correctness evidence only; neither a method innovation nor empirical performance evidence",
+      "formal_state_cardinalities": [
+        3,
+        2,
+        3,
+        3,
+        3,
+        3,
+        2
+      ],
+      "formal_phi_vectors": 20,
+      "formal_margin_regimes_per_phi": 3,
+      "formal_cases": 60,
+      "formal_failures": 0,
+      "maximum_per_case_updates": 288,
+      "maximum_residual": 9.5436e-12,
+      "maximum_stages": 12,
+      "all_phi_1_15_one_stage_regression_passed": true
+    },
+    "null": "phi exactly zero equals the independent Cartesian product",
+    "fit_information": "outer-train strict held-out-meta-fold calibrated marginals and gold concepts C only",
+    "diagnosis_y_used": false
+  },
+  "diagnosis_interface": {
+    "gold_task_model": "L2 diagnosis-balanced logistic regression fitted on outer-train gold concept one-hot vectors",
+    "gold_task_model_C": 1.0,
+    "gold_task_model_solver": "lbfgs",
+    "gold_task_model_max_iter": 2000,
+    "p_y_given_c_table": "evaluate the outer-train gold task model on all 972 Cartesian concept states",
+    "primary_inference": "exact matrix sum p(y|x)=sum_c q_phi(c|x) p(y|c) over all 972 states",
+    "monte_carlo_permitted": false,
+    "map_as_marginalization_permitted": false
+  },
+  "models": [
+    "CF_MPJC",
+    "INDEPENDENT_MARGINALIZATION",
+    "UNPROJECTED_RANK1_JOINT",
+    "JOINT_MAP",
+    "MARGINAL_MEAN_PLUGIN",
+    "OOF_SOFT_LOGISTIC",
+    "OOF_HARD_LOGISTIC",
+    "BILINEAR_SCORE_HEAD",
+    "GOLD_TO_HARD_PRED",
+    "GOLD_ORACLE",
+    "DIRECT_X"
+  ],
+  "controls": {
+    "INDEPENDENT_MARGINALIZATION": "same calibrated marginals and same p(Y|C) table; exact sum under the independent product",
+    "UNPROJECTED_RANK1_JOINT": "same rank-one centered interaction, same concept-only fit inputs, L2, optimizer budget, calibrated marginals, and exact task marginalization; normalize the tilted product without I-projection",
+    "JOINT_MAP": "same CF-MPJC q_phi and p(Y|C), but pass only the maximum-probability concept state",
+    "MARGINAL_MEAN_PLUGIN": "apply the gold-concept diagnosis model directly to the concatenated calibrated marginal means",
+    "OOF_SOFT_LOGISTIC": "diagnosis-balanced L2 logistic head trained on outer-train strict held-out-meta-fold calibrated marginals",
+    "OOF_HARD_LOGISTIC": "same as OOF_SOFT_LOGISTIC after blockwise argmax one-hot conversion",
+    "BILINEAR_SCORE_HEAD": {
+      "description": "diagnosis-balanced rank-one bilinear logistic head on Helmert-reduced calibrated score blocks",
+      "parameter_count": 25,
+      "l2": 0.01,
+      "starts": 5,
+      "max_iter": 1000,
+      "seed": 2026090827
+    },
+    "GOLD_TO_HARD_PRED": "outer-train gold-concept diagnosis head evaluated on outer-validation blockwise-argmax concept predictions",
+    "GOLD_ORACLE": "outer-train gold-concept diagnosis head evaluated on outer-validation gold concepts",
+    "DIRECT_X": "diagnosis-balanced L2 logistic regression on the frozen image embedding, C=1.0 and max_iter=2000"
+  },
+  "prediction_contract": {
+    "unit": "case x repetition x model",
+    "required_columns": [
+      "dataset_id",
+      "case_id",
+      "metadata_index",
+      "label",
+      "repetition",
+      "outer_fold",
+      "model",
+      "p0",
+      "p1"
+    ],
+    "probabilities": "float64 simplex probabilities; clipping is allowed only inside log scoring and not in saved predictions",
+    "required_census_per_model": 3045,
+    "duplicate_key_prohibited": [
+      "case_id",
+      "repetition",
+      "model"
+    ],
+    "paired_comparison": "all models must predict the same cases, repetitions, outer folds, and labels"
+  },
+  "concept_prediction_contract": {
+    "unit": "case x repetition x concept x state",
+    "required_columns": [
+      "dataset_id",
+      "case_id",
+      "metadata_index",
+      "diagnosis_label",
+      "concept",
+      "concept_label",
+      "state",
+      "repetition",
+      "outer_fold",
+      "raw_weighted_probability",
+      "probe_fit_prior",
+      "prior_corrected_probability",
+      "calibrated_probability",
+      "fit_all_temperature"
+    ],
+    "required_census": 57855,
+    "duplicate_key_prohibited": [
+      "case_id",
+      "repetition",
+      "concept",
+      "state"
+    ],
+    "audit_purpose": "permit independent row-state recomputation of probe-fit prior correction and scalar-temperature calibration",
+    "runtime_guard": {
+      "required_before_analysis_or_publication": true,
+      "numeric_tolerance": 1e-10,
+      "exact_column_contract": true,
+      "exact_census_and_unique_key": true,
+      "finite_probabilities_and_temperatures": true,
+      "raw_prior_corrected_and_calibrated_block_simplexes": true,
+      "prior_correction_recomputed_from_raw_and_generating_prior": true,
+      "temperature_transform_recomputed_from_corrected_probability": true,
+      "case_repetition_outer_fold_identity_matches_predictions": true,
+      "failure_policy": "raise before analysis and before atomic publication"
+    }
+  },
+  "joint_record_contract": {
+    "unit": "case x repetition",
+    "required_columns": [
+      "dataset_id",
+      "case_id",
+      "metadata_index",
+      "label",
+      "repetition",
+      "outer_fold",
+      "logp_joint",
+      "logp_independent",
+      "logp_unprojected",
+      "max_joint_marginal_error",
+      "max_unprojected_marginal_error"
+    ],
+    "required_census": 3045,
+    "gold_concept_state_used_only_for_log_likelihood_scoring": true
+  },
+  "fit_manifest_contract": {
+    "unit": "repetition x outer_fold",
+    "required_census": 25,
+    "required_fields": [
+      "repetition",
+      "outer_fold",
+      "joint_converged",
+      "joint_objective",
+      "joint_concept_nll",
+      "joint_gradient_norm",
+      "joint_phi",
+      "joint_projection_solver",
+      "joint_projection_converged",
+      "joint_projection_iterations",
+      "joint_projection_stages",
+      "joint_projection_stage_iterations",
+      "joint_projection_energy_span",
+      "joint_projection_max_marginal_error",
+      "max_joint_marginal_error",
+      "unprojected_converged",
+      "unprojected_objective",
+      "unprojected_concept_nll",
+      "unprojected_gradient_norm",
+      "max_unprojected_marginal_drift",
+      "bilinear_converged",
+      "bilinear_objective",
+      "bilinear_iterations",
+      "bilinear_selected_start",
+      "bilinear_parameter_count",
+      "strict_metaheldout_isolation",
+      "outer_validation_temperature_top_level_meta_folds",
+      "strict_meta_calibration_folds"
+    ],
+    "joint_converged_type": "explicit boolean",
+    "projection_diagnostics_source": "ProjectionDiagnostics returned by the validation marginal-preserving projection",
+    "projection_iteration_identity": "sum(joint_projection_stage_iterations) == joint_projection_iterations; the length equals stages on success, while an exhausted global cap may stop before all planned stages",
+    "bilinear_converged_type": "explicit boolean",
+    "identity_must_match_prediction_outer_fold_census": true
+  },
+  "serialization_contract": {
+    "json_standard": "RFC 8259 compatible JSON; NaN and positive/negative Infinity are prohibited",
+    "allow_nan": false,
+    "applies_to": [
+      "formal freeze manifest",
+      "fit_manifests.json",
+      "run_manifest.json",
+      "analysis.json",
+      "runner terminal JSON"
+    ]
+  },
+  "analysis": {
+    "repeated_cv_risk": "retain every case x repetition prediction; calculate each repetition's risk first and then average the five repetition risks with equal weight; never average probabilities produced by different outer-training sets before scoring",
+    "primary_diagnosis_estimand": "for each repetition, diagnosis-class-macro mean paired true-class log-probability gain, followed by an equal-weight mean across five repetitions; positive favors CF-MPJC",
+    "concept_estimand": "held-out gold full-concept-state log-likelihood gain averaged over repetitions within case, then over cases",
+    "bootstrap_draws": 10000,
+    "bootstrap_seed": 2026090831,
+    "diagnosis_bootstrap": "cluster-resample case IDs within diagnosis class, retain all five repetitions for every sampled case, calculate the paired macro statistic within each repetition, then average repetitions",
+    "concept_bootstrap": "cluster-resample case IDs and retain all repetitions; average the paired gain across repetitions within case",
+    "intervals": [
+      0.9,
+      0.95
+    ],
+    "log_probability_epsilon": 1e-12,
+    "ece_bins": 10,
+    "ece_binning": "equal-width top-label confidence bins on [0,1], with cases weighted to an equal diagnosis-class prior inside each repetition",
+    "tail_metric": "within each diagnosis class and repetition, fractional-boundary CVaR of the worst 10% case NLL mass, then equal-average diagnosis classes and repetitions",
+    "descriptive_metrics": [
+      "macro NLL",
+      "balanced accuracy",
+      "macro F1",
+      "macro one-vs-rest AUROC",
+      "empirical-prevalence ECE10",
+      "equal-diagnosis-prior ECE10",
+      "class-balanced CVaR-10% NLL"
+    ],
+    "interval_rule": "G1-G5 use paired two-sided 90% bootstrap interval lower bounds; noninferiority passes at equality with -0.005 nats.",
+    "multiplicity_boundary": "The ECE-or-CVaR reliability gate is an exploratory development-screen union and is not multiplicity-controlled confirmatory inference."
+  },
+  "success_gates": {
+    "all_derm7pt_initial_gates_required": true,
+    "gate_validity_preconditions": {
+      "all_25_bilinear_fits_converged": true,
+      "all_projection_diagnostics_converged": true,
+      "concept_prediction_runtime_audit_passed": true,
+      "all_json_artifacts_standard_finite_json": true,
+      "failure_effect": "the D1 gate is invalid and overall PASS is prohibited; bilinear nonconvergence is a strong-control validity failure, not a new performance threshold"
+    },
+    "G1_full_joint_concept": "CF-MPJC minus independent held-out full-concept log-likelihood gain has paired 90% LCB > 0",
+    "G2_diagnosis_joint_value": "CF-MPJC minus INDEPENDENT_MARGINALIZATION diagnosis macro true-class log-probability gain has paired 90% LCB > 0",
+    "G3_exact_marginalization": "CF-MPJC minus JOINT_MAP diagnosis macro true-class log-probability gain has paired 90% LCB > 0",
+    "G4a_oof_soft_noninferiority": "CF-MPJC minus OOF_SOFT_LOGISTIC diagnosis gain has paired 90% LCB >= -0.005 nats",
+    "G4b_bilinear_noninferiority": "CF-MPJC minus BILINEAR_SCORE_HEAD diagnosis gain has paired 90% LCB >= -0.005 nats",
+    "G5_reliability_or_tail": "either equal-diagnosis-prior top-label ECE10 improvement or fractional-boundary class-balanced CVaR-10% NLL improvement has paired two-sided 90% bootstrap LCB > 0 against both OOF_SOFT_LOGISTIC and BILINEAR_SCORE_HEAD",
+    "G6_distributed_benefit": {
+      "median_case_gain_vs_independent": "> 0",
+      "class_balanced_fraction_of_cases_benefiting_vs_independent": "> 0.5",
+      "top_10_percent_net_gain_share": "<= 0.80; top 10% is selected within each diagnosis class with a fractional boundary under the equal-class-prior target"
+    },
+    "G7_numerical": {
+      "joint_fit_convergence_fraction": ">= 0.95",
+      "maximum_joint_marginal_error": "<= 1e-8"
+    },
+    "near_neighbor_attribution": "UNPROJECTED_RANK1_JOINT is a mandatory fully paired report and marginal-preservation ablation; no extra pass threshold is introduced beyond the author-approved D5 gates.",
+    "initial_success_label": "PASS only if all validity preconditions and G1 through G7 pass; otherwise FAIL_WITH_COMPONENT_DIAGNOSIS_REQUIRED or INVALID_GATE_EVALUATION when a validity precondition fails",
+    "second_explicit_concept_task": "REQUIRED_AFTER_METHOD_FREEZE_BEFORE_ANY_EXTERNAL_CONFIRMATION_CLAIM"
+  },
+  "second_task_boundary": {
+    "requirement": "A separately preregistered explicit-medical-concept task must test the frozen method direction before external confirmation.",
+    "cbis_ddsm": "DEVELOPMENT_EXPOSED_ONLY; it may be used for method-frozen directional replication if its concept/data contract passes, but never as fresh confirmation.",
+    "fresh_confirmation": "not named, selected, opened, or scored by this D1 protocol"
+  },
+  "failure_interpretation": {
+    "G1_fail": "pairwise J0 structure did not transport to a held-out full joint; stop MPJC and do not add rank or choose edges from diagnosis results",
+    "G1_pass_G2_fail": "joint concept structure is real but not diagnosis-useful under this task interface; retain only the mechanism finding",
+    "G3_fail": "exact task marginalization is not an effective component; remove that method claim",
+    "G4_or_G5_fail": "the structured posterior lacks evidence of advantage over strong discriminative capacity controls; do not advance it as a Pattern Recognition main method",
+    "G6_fail": "benefit remains concentrated in a small catastrophic tail; do not call it a distributed handoff solution",
+    "G7_fail": "treat as a numerical or implementation failure; only a result-blind correctness repair may precede a rerun under a new hash manifest",
+    "gate_validity_fail": "if any bilinear fit or validation projection is nonconverged, the concept artifact audit fails, or any JSON artifact is non-finite/non-standard, label the gate evaluation invalid and prohibit PASS; do not count control nonconvergence as performance evidence",
+    "second_task_fail": "treat Derm7pt as a dataset-specific result; do not open a fresh external set to rescue the method"
+  },
+  "outputs": {
+    "run_directory": "results/derm7pt_cf_mpjc_d1_v1_20260908",
+    "analysis_directory": "results/derm7pt_cf_mpjc_d1_analysis_v1_20260908",
+    "required_run_files": [
+      "predictions.csv",
+      "concept_predictions.csv",
+      "joint_records.csv",
+      "fit_manifests.json",
+      "run_manifest.json"
+    ],
+    "required_analysis_files": [
+      "analysis.json"
+    ],
+    "overwrite": false
+  },
+  "freeze": {
+    "manifest_status": "FROZEN_BEFORE_ANY_CF_MPJC_D1_OUTCOME",
+    "verification_command": "PYTHONPATH=src python -m pytest -q tests/test_mpjc_joint_core.py tests/test_mpjc_calibration.py tests/test_mpjc_bilinear_baseline.py tests/test_mpjc_near_neighbor.py tests/test_mpjc_analysis.py tests/test_mpjc_pilot.py tests/test_derm7pt_quarantine_loader.py tests/test_mpjc_freeze.py",
+    "input_groups": {
+      "protocol_and_config": [
+        "docs/cf_mpjc_d1_preregistered_protocol_20260908.md",
+        "configs/cf_mpjc_d1_derm7pt.json"
+      ],
+      "source": [
+        "src/paper2_evidence_handoff/data.py",
+        "src/paper2_mpjc/__init__.py",
+        "src/paper2_mpjc/calibration.py",
+        "src/paper2_mpjc/joint.py",
+        "src/paper2_mpjc/baselines.py",
+        "src/paper2_mpjc/near_neighbor.py",
+        "src/paper2_mpjc/analysis.py",
+        "src/paper2_mpjc/pilot.py",
+        "scripts/build_derm7pt_dev609_quarantine.py",
+        "scripts/run_derm7pt_cf_mpjc_d1.py",
+        "scripts/freeze_cf_mpjc_d1.py"
+      ],
+      "tests": [
+        "tests/test_mpjc_joint_core.py",
+        "tests/test_mpjc_calibration.py",
+        "tests/test_mpjc_bilinear_baseline.py",
+        "tests/test_mpjc_near_neighbor.py",
+        "tests/test_mpjc_analysis.py",
+        "tests/test_mpjc_pilot.py",
+        "tests/test_derm7pt_quarantine_loader.py",
+        "tests/test_mpjc_freeze.py"
+      ],
+      "data_contract_inputs": [
+        "data/Derm7pt/release_v0_source_audit_20260904.json",
+        "docs/derm7pt_data_access_and_exclusion_audit_20260904.md",
+        "data/Derm7pt/derm7pt_biomedclip_dev609_only_v1_20260908.npz",
+        "data/Derm7pt/derm7pt_dev609_only_v1_20260908.csv",
+        "data/Derm7pt/derm7pt_dev609_only_derivation_receipt_v1_20260908.json",
+        "data/Derm7pt/derm7pt_biomedclip_pair1002_v1_20260904.npz",
+        "data/Derm7pt/release_v0/meta/meta.csv",
+        "data/Derm7pt/release_v0/meta/train_indexes.csv",
+        "data/Derm7pt/release_v0/meta/valid_indexes.csv",
+        "data/Derm7pt/release_v0/meta/test_indexes.csv"
+      ]
+    },
+    "result_paths_required_absent": [
+      "results/derm7pt_cf_mpjc_d1_v1_20260908",
+      "results/derm7pt_cf_mpjc_d1_analysis_v1_20260908"
+    ]
+  },
+  "prohibited": [
+    "select, return, train on, predict, score, or summarize any Derm7pt official-test row; the test index may be read only to enforce exclusion from the development cohort",
+    "use diagnosis Y in concept calibration, joint fitting, rank choice, regularization choice, start selection, or IPF settings",
+    "change concepts, folds, repetitions, rank, regularization, controls, metrics, gates, or failure interpretation after observing D1 outcomes",
+    "select edges, ranks, or models on outer-validation outcomes and evaluate on the same cases",
+    "claim patient-level independence, external validity, clinical utility, safety, LLM benefit, curriculum benefit, or fresh confirmation",
+    "use private spine or another sealed dataset to tune or rescue D1",
+    "call CBIS-DDSM fresh confirmation",
+    "overwrite a freeze manifest or result directory"
+  ]
+}

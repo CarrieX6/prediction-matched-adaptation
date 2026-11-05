@@ -1,0 +1,24 @@
+# Local environments and generated files
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+.DS_Store
+# Dataset arrays, medical images, checkpoints and local execution output
+*.npy
+*.npz
+*.dcm
+*.dicom
+*.nii
+*.nii.gz
+*.pt
+*.pth
+*.ckpt
+/data/
+/datasets/
+/outputs/
+/cache/

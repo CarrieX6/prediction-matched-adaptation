@@ -1,0 +1,11 @@
+{
+  "issue": "re-solving source reference heads for an original fold changed a near-tie Cflex selection",
+  "fold": "cbis_r0_f2",
+  "archived_C": 10.0,
+  "recomputed_C": 1.0,
+  "archived_inner_loss_C1": 0.6777871034619437,
+  "archived_inner_loss_C10": 0.6777725324996813,
+  "max_probability_difference": 0.0541248764894785,
+  "resolution": "head-only learning curve fixes archived nested training logits; new partitions fully refit according to the same declared scopes",
+  "primary_archive_unchanged": true
+}

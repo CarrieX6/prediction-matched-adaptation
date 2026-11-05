@@ -1,0 +1,3 @@
+# Conditional statistical audit
+
+Archived matched-five-model PH2 predictions are used; neither the covariance estimate nor a diagnostic model is refitted. Within each diagnosis class, Spearman correlations of distance with signed and absolute M-minus-Cflex probability differences use 10,000 paired case-bootstrap draws (seed 20261025). Negative cases precede positive cases in the random-number stream; both contrasts share draws within a class. Percentile intervals condition on fitted models and are exploratory. Holm adjustment is applied at alpha 0.05 to the 16 existing permutation tests (four statistics by four strata), without rerunning or changing the permutation results. The floor is 1/10,001.
