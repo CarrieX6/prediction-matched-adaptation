@@ -1,6 +1,6 @@
 # Reproducibility record — 14 October 2026
 
-This record preserves implementation details relocated from the supplement. It complements the code README and frozen protocols; it does not replace the scientific fitting scopes, budgets, seeds, or preprocessing specified in the paper.
+This record preserves implementation details relocated from the supplement. It complements the [project overview](README.md), [reproduction guide](REPRODUCTION.md), and frozen protocols; it does not replace the scientific fitting scopes, budgets, seeds, or preprocessing specified in the paper.
 
 ## Recorded environments
 
@@ -32,6 +32,6 @@ For each of the 30 original outer units, fresh balanced L2 logistic fits compare
 
 The manuscript provenance includes only unit-level discrepancies, counts, selected hyperparameters and source checksums, with no case identifiers, predictions or coefficient arrays. The code archive contains the script and protocol, not the verification result or clinical panels.
 
-## Figure preparation and disclosure
+## Historical figure-preparation record
 
-OpenAI Codex assisted with drafting, language editing, organization, code preparation and explanatory-schematic preparation, as disclosed in the manuscript. An image-generation tool supplied a layout reference for Figure 2. The scientific content, equations and connections were implemented and checked in editable vector and presentation files. Figure scripts map stored aggregate estimates, paired interval endpoints and descriptive coefficient ranges to editable vector elements; numerical inputs and editable files accompany the manuscript sources. AI was not used to generate or alter medical-image pixels. Historical model/tool version names remain subject to factual verification; this record does not invent them or change the disclosure.
+During manuscript preparation, OpenAI Codex assisted with drafting, language editing, organization, code preparation, and explanatory-schematic preparation. An image-generation tool supplied a layout reference for an earlier explanatory schematic; figure numbering subsequently changed. The scientific content, equations and connections were implemented and checked in editable vector and presentation files. Figure scripts map stored aggregate estimates, paired interval endpoints and descriptive coefficient ranges to editable vector elements; these preparation materials are not included in this code-only repository. AI was not used to generate or alter medical-image pixels. The submitted manuscript states: “The authors used OpenAI Codex for manuscript polishing and code assistance. The authors reviewed and edited the assisted content and take full responsibility for the final manuscript.”
